@@ -2,13 +2,30 @@
 
 const express = require('express');
 const { resolve } = require('path');
+const bodyParser = require('body-parser');
 const logger = require('./util/logger');
 
 const argv = require('./util/argv');
-const port = require('./util/port');
+const { port } = require('./configs/app');
+const db = require('./database');
 const setup = require('./middlewares/frontendMiddleware');
+const productRoutes = require('./routes/products');
 
 const app = express();
+db();
+
+
+// configure bodyparser
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// initialise express router
+const router = express.Router();
+// use express router
+app.use('/api', router);
+// call product routing
+productRoutes(router);
+
 
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
 // app.use('/api', myApi);
