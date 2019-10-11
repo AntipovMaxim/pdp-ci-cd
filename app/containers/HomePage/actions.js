@@ -11,7 +11,7 @@ import {
 export function loadProducts() {
   return (dispatch) => {
     dispatch({ type: GET_PRODUCTS_REQUEST });
-    const URL = 'https://api.github.com/users/martmax/repos?type=all&sort=updated';
+    const URL = '/api/products/get';
 
     return request(URL).then((products) => {
       dispatch({ type: GET_PRODUCTS_SUCCESS, payload: products });
@@ -19,13 +19,13 @@ export function loadProducts() {
   };
 }
 
-export function addProduct(name) {
+export function addProduct(value) {
   return (dispatch) => {
     dispatch({ type: ADD_PRODUCT_REQUEST });
-    const URL = 'https://api.github.com/users/martmax/repos?type=all&sort=updated';
-    const options = { method: 'POST', body: { name } };
+    const URL = '/api/products/create';
+    const options = { method: 'POST', body: JSON.stringify({ name: value }) };
 
-    return request(URL, options).then(() => {
+    return request(URL, options).then(({ name }) => {
       dispatch({ type: ADD_PRODUCT_SUCCESS, payload: { name } });
     }, (error) => dispatch({ type: ADD_PRODUCT_FAILURE, payload: { error } }));
   };
