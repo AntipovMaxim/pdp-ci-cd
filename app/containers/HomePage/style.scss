@@ -1,3 +1,19 @@
 .home-page {
-  background-color: red;
+  padding: 20px;
+}
+
+.form {
+  padding: 10px;
+  background-color: #7f7f7f;
+
+  &__label {
+    margin-right: 20px;
+    font-weight: 800;
+  }
+
+  &__input {
+    border: 1px solid grey;
+    padding: 5px;
+    border-radius: 3px;
+  }
 }
