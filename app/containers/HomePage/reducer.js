@@ -1,4 +1,5 @@
 import {
+  ADD_PRODUCT_REQUEST, ADD_PRODUCT_SUCCESS,
   GET_PRODUCTS_FAILURE,
   GET_PRODUCTS_REQUEST,
   GET_PRODUCTS_SUCCESS,
@@ -12,7 +13,8 @@ export const initialState = {
 
 export function productReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_PRODUCTS_REQUEST: {
+    case GET_PRODUCTS_REQUEST:
+    case ADD_PRODUCT_REQUEST: {
       return { ...state, loading: true };
     }
     case GET_PRODUCTS_SUCCESS: {
@@ -21,6 +23,15 @@ export function productReducer(state = initialState, action) {
         loading: false,
         error: false,
         payload: action.payload,
+      };
+    }
+
+    case ADD_PRODUCT_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+        error: false,
+        payload: [action.payload, ...state.payload],
       };
     }
 

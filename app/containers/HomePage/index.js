@@ -2,13 +2,14 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-import { loadProducts } from './actions';
+import { loadProducts, addProduct } from './actions';
 import HomePage from './HomePage';
 import { selectProductsList, selectProductsLoading } from './selectors';
 
-const mapDispatchToProps = (dispatch) => ({
-  loadProducts: () => dispatch(loadProducts()),
-});
+const mapDispatchToProps = {
+  loadProducts,
+  addProduct,
+};
 
 const mapStateToProps = createStructuredSelector({
   products: selectProductsList(),
