@@ -3,7 +3,7 @@ import './style.scss';
 
 const Footer = () => (
   <footer>
-    <section>PDP CI/CD project</section>
+    <section><b>PDP CI/CD project. 2019</b></section>
   </footer>
 );
 

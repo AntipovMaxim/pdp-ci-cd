@@ -5,6 +5,7 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
   render() {
     return (
       <div className="header">
+        <b>@maxa</b>
       </div>
     );
   }
