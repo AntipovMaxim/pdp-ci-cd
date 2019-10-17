@@ -18,3 +18,17 @@
     width: 250px;
   }
 }
+
+.product-item {
+  display: flex;
+  padding: 10px 0;
+
+  &__name {
+    width: 300px;
+  }
+
+  &__btn {
+    margin-right: 10px;
+    font-size: 20px;
+  }
+}

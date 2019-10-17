@@ -1,9 +1,14 @@
 import {
-  ADD_PRODUCT_REQUEST, ADD_PRODUCT_SUCCESS,
+  ADD_PRODUCT_REQUEST,
+  ADD_PRODUCT_SUCCESS,
+  DELETE_PRODUCT_FAILURE,
+  DELETE_PRODUCT_SUCCESS,
   GET_PRODUCTS_FAILURE,
   GET_PRODUCTS_REQUEST,
   GET_PRODUCTS_SUCCESS,
-} from 'containers/HomePage/constants';
+  UPDATE_PRODUCT_FAILURE,
+  UPDATE_PRODUCT_SUCCESS,
+} from 'containers/HomePage/types';
 
 export const initialState = {
   loading: false,
@@ -35,6 +40,33 @@ export function productReducer(state = initialState, action) {
       };
     }
 
+    case DELETE_PRODUCT_SUCCESS: {
+      const { id } = action.payload;
+      const payload = state.payload.filter((product) => product.id !== id);
+      return {
+        ...state,
+        loading: false,
+        error: false,
+        payload,
+      };
+    }
+
+    case UPDATE_PRODUCT_SUCCESS: {
+      const { id } = action.payload;
+      const payload = state.payload.map((product) => {
+        return product.id === id ? action.payload : product;
+      });
+
+      return {
+        ...state,
+        loading: false,
+        error: false,
+        payload,
+      };
+    }
+
+    case UPDATE_PRODUCT_FAILURE:
+    case DELETE_PRODUCT_FAILURE:
     case GET_PRODUCTS_FAILURE: {
       return { ...state, error: action.payload.error, loading: false };
     }

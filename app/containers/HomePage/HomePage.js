@@ -6,48 +6,79 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
   constructor(props) {
     super(props);
     this.state = {
-      productName: '',
+      currentProductName: '',
+      editableProductId: null,
     };
 
     this.onChangeProductName = this.onChangeProductName.bind(this);
     this.onSubmitForm = this.onSubmitForm.bind(this);
+    this.getInputRef = this.getInputRef.bind(this);
   }
 
   componentDidMount() {
     const { loadProducts } = this.props;
     loadProducts();
+    this.textInput.focus();
   }
 
   onChangeProductName(evt) {
     this.setState({
-      productName: evt.target.value,
+      currentProductName: evt.target.value,
     });
   }
 
   onSubmitForm(evt) {
     if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-    const { addProduct } = this.props;
-    const { productName } = this.state;
+    const { addProduct, updateProduct } = this.props;
+    const { currentProductName, editableProductId } = this.state;
+    if (!currentProductName) return;
 
-    addProduct(productName);
+    if (editableProductId) {
+      updateProduct({ id: editableProductId, name: currentProductName });
+      this.setState({
+        editableProductId: null,
+      });
+    } else {
+      addProduct(currentProductName);
+    }
+
+    this.setState({
+      currentProductName: '',
+    });
+  }
+
+  getInputRef(elem) {
+    this.textInput = elem;
+  }
+
+  openEditMode(product) {
+    this.textInput.focus();
+    this.setState({
+      editableProductId: product.id,
+      currentProductName: product.name,
+    });
   }
 
   render() {
-    const { products } = this.props;
-    const { productName } = this.state;
+    const { products, deleteProduct } = this.props;
+    const { currentProductName } = this.state;
 
     return (
       <article className="home-page">
         <section>
-          <form className="form" onSubmit={this.onSubmitForm}>
+          <form
+            className="form"
+            onSubmit={this.onSubmitForm}
+          >
             <label htmlFor="productName">
               <span className="form__label">Add products:</span>
               <input
+                ref={this.getInputRef}
                 className="form__input"
                 id="productName"
                 type="text"
                 placeholder="name"
-                value={productName}
+                value={currentProductName}
                 onChange={this.onChangeProductName}
               />
             </label>
@@ -55,7 +86,28 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
         </section>
         <section>
           <p><b>Products:</b></p>
-          {products.map((product) => (<div key={product.name}>{product.name}</div>))}
+          {products.length ? products.map((product) => (
+            <div
+              key={product.id}
+              className="product-item"
+            >
+              <div className="product-item__name">{product.name}</div>
+              <button
+                onClick={this.openEditMode.bind(this, product)}
+                type="button"
+                className="product-item__btn"
+              >
+                &#10000;
+              </button>
+              <button
+                onClick={deleteProduct.bind(this, product.id)}
+                type="button"
+                className="product-item__btn"
+              >
+                &#9766;
+              </button>
+            </div>
+          )) : 'Please add products...'}
         </section>
       </article>
     );
@@ -65,5 +117,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
 HomePage.propTypes = {
   loadProducts: PropTypes.func,
   addProduct: PropTypes.func,
+  deleteProduct: PropTypes.func,
+  updateProduct: PropTypes.func,
   products: PropTypes.array,
 };
