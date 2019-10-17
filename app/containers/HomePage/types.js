@@ -9,3 +9,7 @@ export const ADD_PRODUCT_FAILURE = 'HOME/add product failure';
 export const DELETE_PRODUCT_REQUEST = 'HOME/delete product request';
 export const DELETE_PRODUCT_SUCCESS = 'HOME/delete product success';
 export const DELETE_PRODUCT_FAILURE = 'HOME/delete product failure';
+
+export const UPDATE_PRODUCT_REQUEST = 'HOME/update product request';
+export const UPDATE_PRODUCT_SUCCESS = 'HOME/update product success';
+export const UPDATE_PRODUCT_FAILURE = 'HOME/uodate product failure';

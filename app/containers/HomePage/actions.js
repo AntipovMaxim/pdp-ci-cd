@@ -8,8 +8,11 @@ import {
   ADD_PRODUCT_FAILURE,
   DELETE_PRODUCT_REQUEST,
   DELETE_PRODUCT_SUCCESS,
-  DELETE_PRODUCT_FAILURE
-} from 'containers/HomePage/constants';
+  DELETE_PRODUCT_FAILURE,
+  UPDATE_PRODUCT_REQUEST,
+  UPDATE_PRODUCT_FAILURE,
+  UPDATE_PRODUCT_SUCCESS,
+} from 'containers/HomePage/types';
 import { getProduct } from 'containers/HomePage/mappers';
 
 export function loadProducts() {
@@ -43,6 +46,18 @@ export function deleteProduct(id) {
 
     return request(URL, options).then(() => {
       dispatch({ type: DELETE_PRODUCT_SUCCESS, payload: { id } });
-    }, (error) => dispatch({ type: ADD_PRODUCT_FAILURE, payload: { error } }));
+    }, (error) => dispatch({ type: DELETE_PRODUCT_FAILURE, payload: { error } }));
+  };
+}
+
+export function updateProduct(product) {
+  return (dispatch) => {
+    dispatch({ type: UPDATE_PRODUCT_REQUEST });
+    const URL = `/api/products/update/${product.id}`;
+    const options = { method: 'PUT', body: JSON.stringify({ name: product.name }) };
+
+    return request(URL, options).then((response) => {
+      dispatch({ type: UPDATE_PRODUCT_SUCCESS, payload: getProduct(response) });
+    }, (error) => dispatch({ type: UPDATE_PRODUCT_FAILURE, payload: { error } }));
   };
 }
