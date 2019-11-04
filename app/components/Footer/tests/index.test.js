@@ -8,7 +8,7 @@ describe('<Footer />', () => {
     const renderedComponent = shallow(<Footer />);
     expect(
       renderedComponent.contains(
-        <section>PDP CI/CD project</section>
+        <section><b>PDP CI/CD project. 2019</b></section>
       )
     ).toBe(true);
   });

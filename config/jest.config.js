@@ -7,12 +7,12 @@ module.exports = {
     '!app/*/*/Loadable.{js,jsx}',
   ],
   coverageThreshold: {
-    global: {
-      statements: 60,
-      branches: 60,
-      functions: 60,
-      lines: 60,
-    },
+    // global: {
+    //   statements: 60,
+    //   branches: 60,
+    //   functions: 60,
+    //   lines: 60,
+    // },
   },
   coverageReporters: ['json', 'lcov', 'text-summary'],
   moduleDirectories: ['node_modules', 'app'],
