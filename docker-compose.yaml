@@ -6,6 +6,8 @@ services:
       - "3001:3000"
     depends_on:
       - mongo
+    environment:
+      - MONGO_DB_URI=mongodb://mongo:27017/ci-cd-products
   mongo:
     image: mongo
     ports:
