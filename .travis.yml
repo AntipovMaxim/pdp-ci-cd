@@ -8,3 +8,7 @@ script:
   - npm run test
 
 cache: npm
+
+notifications:
+  email:
+    on_failure: change
