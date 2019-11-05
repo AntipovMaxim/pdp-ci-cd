@@ -54,7 +54,11 @@ export function productReducer(state = initialState, action) {
     case UPDATE_PRODUCT_SUCCESS: {
       const { id } = action.payload;
       const payload = state.payload.map((product) => {
-        return product.id === id ? action.payload : product;
+        if (product.id === id) {
+          return action.payload;
+        }
+
+        return product;
       });
 
       return {
