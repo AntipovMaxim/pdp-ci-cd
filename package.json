@@ -1,0 +1,23 @@
+{
+  "name": "ci-cd-monorepa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "launch:products": "npm --prefix products-service run start",
+    "launch:client": "npm --prefix client run start",
+    "ci:lint": "bash devops/scripts/ci.lint.sh",
+    "ci:install": "bash devops/scripts/ci.install.sh",
+    "ci:test": "bash devops/scripts/ci.test.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/martmax/pdp-ci-cd.git"
+  },
+  "author": "Maxim Antipov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/martmax/pdp-ci-cd/issues"
+  },
+  "homepage": "https://github.com/martmax/pdp-ci-cd#readme"
+}
