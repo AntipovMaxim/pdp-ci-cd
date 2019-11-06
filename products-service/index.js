@@ -1,6 +1,7 @@
 /* eslint consistent-return:0 */
 
 const express = require('express');
+var cors = require('cors');
 const bodyParser = require('body-parser');
 const logger = require('./util/logger');
 
@@ -10,6 +11,9 @@ const productRoutes = require('./routes/products');
 
 const app = express();
 db();
+
+//cors
+app.use(cors());
 
 
 // configure bodyparser

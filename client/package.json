@@ -17,7 +17,7 @@
     "lint": "npm run lint:js",
     "lint:eslint": "eslint --ignore-path .gitignore",
     "lint:js": "npm run lint:eslint -- . ",
-    "start": "cross-env NODE_ENV=development node app-svc",
+    "start": "env-cmd -f enviroment/local.env node app-svc",
     "start:prod": "cross-env NODE_ENV=production node app-svc",
     "start:production": "npm run test && npm run build && npm run start:prod",
     "pretest": "npm run test:clean && npm run lint",
