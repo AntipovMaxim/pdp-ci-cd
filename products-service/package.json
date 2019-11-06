@@ -11,9 +11,9 @@
   "scripts": {
     "build:clean": "rimraf ./build",
     "clean": "build:clean",
-    "start": "cross-env NODE_ENV=development node server",
-    "start:prod": "cross-env NODE_ENV=production node server",
-    "launch:dev": "env-cmd configs/local.env nodemon server"
+    "start": "npm run launch:dev",
+    "start:prod": "node index",
+    "launch:dev": "env-cmd configs/local.env nodemon index"
   },
   "dependencies": {
     "body-parser": "^1.19.0",

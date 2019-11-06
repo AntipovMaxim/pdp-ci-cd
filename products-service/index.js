@@ -4,7 +4,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const logger = require('./util/logger');
 
-const argv = require('./util/argv');
 const { port } = require('./configs/app');
 const db = require('./database');
 const productRoutes = require('./routes/products');
@@ -27,7 +26,7 @@ productRoutes(router);
 
 
 // get the intended host and port number, use localhost and port 3000 if not provided
-const customHost = argv.host || process.env.HOST;
+const customHost = process.env.HOST;
 // const host = customHost || null; // Let http.Server use its default IPv6/4 host
 const prettyHost = customHost || 'localhost';
 
