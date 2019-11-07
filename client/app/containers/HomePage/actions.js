@@ -14,11 +14,13 @@ import {
   UPDATE_PRODUCT_SUCCESS,
 } from 'containers/HomePage/types';
 import { getProduct } from 'containers/HomePage/mappers';
+import { apiConfig } from '../../config/apiConfig';
+
 
 export function loadProducts() {
   return (dispatch) => {
     dispatch({ type: GET_PRODUCTS_REQUEST });
-    const URL = '/api/products/get';
+    const URL = `${apiConfig.PRODUCTS_API_URL}/api/products/get`;
 
     return request(URL).then((products) => {
       dispatch({ type: GET_PRODUCTS_SUCCESS, payload: products.map(getProduct) });
@@ -29,7 +31,7 @@ export function loadProducts() {
 export function addProduct(value) {
   return (dispatch) => {
     dispatch({ type: ADD_PRODUCT_REQUEST });
-    const URL = '/api/products/create';
+    const URL = `${apiConfig.PRODUCTS_API_URL}/api/products/create`;
     const options = { method: 'POST', body: JSON.stringify({ name: value }) };
 
     return request(URL, options).then((product) => {
@@ -41,7 +43,7 @@ export function addProduct(value) {
 export function deleteProduct(id) {
   return (dispatch) => {
     dispatch({ type: DELETE_PRODUCT_REQUEST });
-    const URL = `/api/products/remove/${id}`;
+    const URL = `${apiConfig.PRODUCTS_API_URL}/api/products/remove/${id}`;
     const options = { method: 'DELETE' };
 
     return request(URL, options).then(() => {
@@ -53,7 +55,7 @@ export function deleteProduct(id) {
 export function updateProduct(product) {
   return (dispatch) => {
     dispatch({ type: UPDATE_PRODUCT_REQUEST });
-    const URL = `/api/products/update/${product.id}`;
+    const URL = `${apiConfig.PRODUCTS_API_URL}/api/products/update/${product.id}`;
     const options = { method: 'PUT', body: JSON.stringify({ name: product.name }) };
 
     return request(URL, options).then((response) => {

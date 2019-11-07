@@ -8,6 +8,7 @@ const disconnected = chalk.bold.red;
 const termination = chalk.bold.magenta;
 
 module.exports = () => {
+  console.log(dbHost)
   mongoose.connect(dbHost);
 
   mongoose.connection.on('connected', () => {
