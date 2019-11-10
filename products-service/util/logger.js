@@ -16,7 +16,7 @@ const logger = {
 
   // Called when express.js app starts on given port w/o errors
   appStarted: (port, host) => {
-    console.log(`Server started ! ${chalk.green('✓')}`);
+    console.log(`PRODUCT_SERVICE STARTED ! ${chalk.green('✓')}`);
 
     console.log(`
 ${chalk.bold('Access URLs:')}${divider}
