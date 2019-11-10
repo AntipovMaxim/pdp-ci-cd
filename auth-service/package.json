@@ -2,7 +2,7 @@
   "name": "auth-service",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "src/server.js",
   "dependencies": {
     "chalk": "^2.4.2",
     "ip": "1.1.5",
@@ -19,6 +19,12 @@
     "env-cmd": "8.0.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.7.2",
+    "@babel/plugin-proposal-object-rest-spread": "7.3.1",
+    "@babel/plugin-syntax-dynamic-import": "7.2.0",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/register": "^7.7.0",
+    "babel-plugin-module-resolver": "^3.2.0",
     "rimraf": "2.6.3"
   },
   "scripts": {

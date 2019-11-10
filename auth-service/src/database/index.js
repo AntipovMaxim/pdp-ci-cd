@@ -1,14 +1,14 @@
-const mongoose = require('mongoose');
-const chalk = require('chalk');
-const { dbHost } = require('../config/app');
+import mongoose from 'mongoose';
+import chalk from 'chalk';
+import { appConfig } from '../config/app.config';
 
 const connected = chalk.bold.cyan;
 const error = chalk.bold.yellow;
 const disconnected = chalk.bold.red;
 const termination = chalk.bold.magenta;
 
-module.exports = () => {
-  console.log(dbHost)
+export const connectToDB = () => {
+  const { dbHost } = appConfig;
   mongoose.connect(dbHost);
 
   mongoose.connection.on('connected', () => {

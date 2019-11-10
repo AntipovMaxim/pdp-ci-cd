@@ -1,10 +1,7 @@
-const mongoose = require('mongoose')
-const router = require('express').Router()
-const verifyToken = require('../../middlewares/verify-token.middleware')
-const Users = mongoose.model('Users')
+import { verifyToken } from '../middlewares/verify-token.middleware';
+import { Users } from '../models/Users';
 
-//POST new user route (optional, everyone has access)
-router.post('/', (req, res, next) => {
+export const register = (req, res) => {
   const { body: { user } } = req
 
   if (!user.email || !user.password) {
@@ -13,12 +10,12 @@ router.post('/', (req, res, next) => {
 
   const finalUser = new Users(user)
   finalUser.setPassword(user.password)
+
   return finalUser.save()
     .then(() => res.json({ user: finalUser.toAuthJSON() }))
-})
+}
 
-//POST login route (optional, everyone has access)
-router.post('/login', (req, res, next) => {
+export const login = (req, res) => {
   const { body: { user: { email, password } } } = req
 
   if (!email || !password) {
@@ -34,15 +31,12 @@ router.post('/login', (req, res, next) => {
 
     return res.json({ user: user.toAuthJSON() })
   })
-})
+}
 
-router.get('/current', verifyToken, (req, res, next) => {
+export const getCurrentUser = (req, res) => {
   Users.findById(req.userId, (err, user) => {
     if (err) return res.status(500).send("There was a problem finding the user.");
     if (!user) return res.status(404).send("No user found.");
     res.status(200).send(user);
   });
-
-});
-
-module.exports = router
+};

@@ -8,7 +8,7 @@ import { apiConfig } from '../../config/apiConfig';
 export function register({ password, email }) {
   return (dispatch) => {
     dispatch({ type: actionTypes.REGISTER_REQUEST });
-    const URL = `${apiConfig.AUTH_API_URL}/api/users`;
+    const URL = `${apiConfig.AUTH_API_URL}/auth/register`;
     const options = { method: 'POST', body: JSON.stringify({ user: { email, password } }) };
 
     return request(URL, options).then((data) => {
@@ -21,7 +21,7 @@ export function register({ password, email }) {
 export function login({ password, email }) {
   return (dispatch) => {
     dispatch({ type: actionTypes.LOGIN_REQUEST });
-    const URL = `${apiConfig.AUTH_API_URL}/api/users/login`;
+    const URL = `${apiConfig.AUTH_API_URL}/auth/login`;
     const options = { method: 'POST', body: JSON.stringify({ user: { email, password } }) };
 
     return request(URL, options).then((data) => {

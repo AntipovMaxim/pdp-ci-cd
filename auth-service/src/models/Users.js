@@ -1,9 +1,8 @@
-const mongoose = require('mongoose');
-const crypto = require('crypto');
-const jwt = require('jsonwebtoken');
-const config = require('../config/app');
+import { Schema, model } from 'mongoose';
+import crypto from 'crypto';
+import jwt from 'jsonwebtoken';
+import { appConfig } from '../config/app.config';
 
-const { Schema } = mongoose;
 
 const UsersSchema = new Schema({
   email: String,
@@ -30,7 +29,7 @@ UsersSchema.methods.generateJWT = function() {
     email: this.email,
     id: this._id,
     exp: parseInt(expirationDate.getTime() / 1000, 10),
-  }, config.secret);
+  }, appConfig.secret);
 }
 
 UsersSchema.methods.toAuthJSON = function() {
@@ -41,4 +40,4 @@ UsersSchema.methods.toAuthJSON = function() {
   };
 };
 
-mongoose.model('Users', UsersSchema);
+export const Users = model('User', UsersSchema);
