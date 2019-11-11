@@ -15,19 +15,21 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import './style.scss';
+import AuthPage from 'containers/AuthPage';
 
 const App = () => (
   <div className="app-wrapper">
     <Helmet
-      titleTemplate="%s - React.js Boilerplate"
-      defaultTitle="React.js Boilerplate"
+      titleTemplate="%s - CI-CD-@maxa"
+      defaultTitle="CI-CD-@maxa"
     >
-      <meta name="description" content="A React.js Boilerplate application" />
+      <meta name="description" content="A PDP CI-CD-@maxa app" />
     </Helmet>
     <Header />
     <div className="app-wrapper__content">
       <Switch>
         <Route exact path="/" component={HomePage} />
+        <Route exact path="/auth" component={AuthPage} />
         <Route path="" component={NotFoundPage} />
       </Switch>
     </div>
