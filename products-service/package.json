@@ -9,6 +9,8 @@
   "license": "MIT",
   "author": "Maxim Antipov",
   "scripts": {
+    "lint": "eslint src --ext .js",
+    "lint:fix": "npm run lint -- --fix",
     "build:clean": "rimraf ./build",
     "clean": "build:clean",
     "start": "npm run launch:dev",
@@ -34,10 +36,10 @@
     "@babel/preset-env": "^7.7.1",
     "@babel/register": "^7.7.0",
     "babel-plugin-module-resolver": "^3.2.0",
-    "eslint": "5.16.0",
+    "eslint": "^6.6.0",
     "eslint-config-airbnb": "17.1.0",
-    "eslint-config-airbnb-base": "13.1.0",
-    "eslint-plugin-import": "2.17.3",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
     "lint-staged": "8.2.1",
     "nodemon": "^1.19.4",
     "rimraf": "2.6.3"

@@ -12,7 +12,7 @@ import apiRoutes from './routes';
 const app = express();
 connectToDB();
 
-//cors
+// cors
 app.use(cors());
 
 
