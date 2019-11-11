@@ -1,5 +1,10 @@
-const mongoose = require('mongoose');
-const productSchema = require('../models/product.model');
+import { Schema, model } from 'mongoose';
+
+const productSchema = new Schema({
+  name: String,
+}, {
+  timestamps: true,
+});
 
 productSchema.statics = {
   create(data, cb) {
@@ -8,10 +13,6 @@ productSchema.statics = {
   },
 
   get(query, cb) {
-    this.find(query, cb);
-  },
-
-  getByName(query, cb) {
     this.find(query, cb);
   },
 
@@ -24,4 +25,4 @@ productSchema.statics = {
   }
 };
 
-module.exports = mongoose.model('Products', productSchema);
+export const ProductsModel = model('Products', productSchema);

@@ -40,4 +40,4 @@ UsersSchema.methods.toAuthJSON = function () {
   };
 };
 
-export const Users = model('User', UsersSchema);
+export const UsersModel = model('User', UsersSchema);

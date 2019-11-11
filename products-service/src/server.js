@@ -1,16 +1,16 @@
 /* eslint consistent-return:0 */
 
-const express = require('express');
-var cors = require('cors');
-const bodyParser = require('body-parser');
-const logger = require('./util/logger');
+import express from 'express';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import { logger } from './util/logger';
 
-const { port } = require('./configs/app');
-const db = require('./database');
-const productRoutes = require('./routes/products');
+import { appConfig } from './configs/app';
+import { connectToDB } from './database';
+import apiRoutes from './routes';
 
 const app = express();
-db();
+connectToDB();
 
 //cors
 app.use(cors());
@@ -20,13 +20,9 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// initialise express router
-const router = express.Router();
-// use express router
-app.use('/api', router);
 
-// call product routing
-productRoutes(router);
+// Init api routes
+app.use(apiRoutes);
 
 
 // get the intended host and port number, use localhost and port 3000 if not provided
@@ -35,9 +31,9 @@ const customHost = process.env.HOST;
 const prettyHost = customHost || 'localhost';
 
 // Start your app.
-app.listen(port, (err) => {
+app.listen(appConfig.port, (err) => {
   if (err) {
     return logger.error(err.message);
   }
-  logger.appStarted(port, prettyHost);
+  logger.appStarted(appConfig.port, prettyHost);
 });

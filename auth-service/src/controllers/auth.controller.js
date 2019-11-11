@@ -1,4 +1,4 @@
-import { Users } from '../models/Users';
+import { UsersModel } from '../models/users.model';
 
 export const register = (req, res) => {
   const { body: { user } } = req;
@@ -7,7 +7,7 @@ export const register = (req, res) => {
     return res.status(412).json({ title: 'Validation Error', error: 'Email and password is required' });
   }
 
-  const finalUser = new Users(user);
+  const finalUser = new UsersModel(user);
   finalUser.setPassword(user.password);
 
   return finalUser.save()
@@ -21,7 +21,7 @@ export const login = (req, res) => {
     return res.status(412).json({ title: 'Validation Error', error: 'Email and password is required' });
   }
 
-  return Users.findOne({ email }, (err, user) => {
+  return UsersModel.findOne({ email }, (err, user) => {
     if (err) return res.status(500).send('Error on the server.');
     if (!user) return res.status(404).send('No user found.');
 
@@ -33,7 +33,7 @@ export const login = (req, res) => {
 };
 
 export const getCurrentUser = (req, res) => {
-  Users.findById(req.userId, (err, user) => {
+  UsersModel.findById(req.userId, (err, user) => {
     if (err) return res.status(500).send('There was a problem finding the user.');
     if (!user) return res.status(404).send('No user found.');
     return res.status(200).send(user);

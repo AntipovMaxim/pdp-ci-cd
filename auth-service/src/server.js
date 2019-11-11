@@ -7,7 +7,7 @@ import morgan from 'morgan';
 
 import { logger } from './utils/logger';
 import { appConfig } from './config/app.config';
-import routes from './routes';
+import apiRoutes from './routes';
 import { connectToDB } from './database';
 
 // Initiate our app
@@ -29,7 +29,7 @@ connectToDB();
 mongoose.set('debug', true);
 
 // Init Routes
-app.use(routes);
+app.use(apiRoutes);
 
 
 // Errors handling
