@@ -5,7 +5,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import { logger } from './util/logger';
 
-import { appConfig } from './configs/app';
+import { appConfig } from './config/app.config';
 import { connectToDB } from './database';
 import apiRoutes from './routes';
 

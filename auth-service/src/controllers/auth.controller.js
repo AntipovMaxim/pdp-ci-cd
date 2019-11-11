@@ -36,6 +36,7 @@ export const getCurrentUser = (req, res) => {
   UsersModel.findById(req.userId, (err, user) => {
     if (err) return res.status(500).send('There was a problem finding the user.');
     if (!user) return res.status(404).send('No user found.');
-    return res.status(200).send(user);
+
+    return res.status(200).json({ id: user._id, email: user.email });
   });
 };

@@ -1,5 +1,4 @@
-import 'whatwg-fetch';
-import { UserStorage } from '../services/storages/UserStorage';
+import fetch from 'node-fetch';
 
 function parseJSON(response) {
   if (response.status === 204 || response.status === 205) {
@@ -14,17 +13,16 @@ function checkStatus(response) {
   }
 
   const error = new Error(response.statusText);
-  error.error = response;
+  error.response = response;
   throw error;
 }
 
-export default function request(url, options = {}) {
-  const token = UserStorage.getAuthorization();
+export function httpRequest(url, options = {}) {
   return fetch(url, {
     headers: {
       Accept: 'application/json, text/plain, */*',
       'Content-Type': 'application/json',
-      ...(token ? { Authorization: `Bearer ${UserStorage.getAuthorization()}` } : {}),
+      ...options.headers,
     },
     ...options,
   })

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import chalk from 'chalk';
-import { appConfig } from '../configs/app';
+import { appConfig } from '../config/app.config';
 
 const connected = chalk.bold.cyan;
 const error = chalk.bold.yellow;

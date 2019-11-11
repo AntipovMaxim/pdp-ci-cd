@@ -13,7 +13,6 @@ import {
   UPDATE_PRODUCT_FAILURE,
   UPDATE_PRODUCT_SUCCESS,
 } from 'containers/HomePage/types';
-import { getProduct } from 'containers/HomePage/mappers';
 import { apiConfig } from '../../config/apiConfig';
 
 
@@ -23,8 +22,8 @@ export function loadProducts() {
     const URL = `${apiConfig.PRODUCTS_API_URL}/products/get`;
 
     return request(URL).then((products) => {
-      dispatch({ type: GET_PRODUCTS_SUCCESS, payload: products.map(getProduct) });
-    }, (error) => dispatch({ type: GET_PRODUCTS_FAILURE, payload: { error } }));
+      dispatch({ type: GET_PRODUCTS_SUCCESS, payload: products });
+    }, ({ error }) => dispatch({ type: GET_PRODUCTS_FAILURE, payload: { error } }));
   };
 }
 
@@ -35,8 +34,8 @@ export function addProduct(value) {
     const options = { method: 'POST', body: JSON.stringify({ name: value }) };
 
     return request(URL, options).then((product) => {
-      dispatch({ type: ADD_PRODUCT_SUCCESS, payload: getProduct(product) });
-    }, (error) => dispatch({ type: ADD_PRODUCT_FAILURE, payload: { error } }));
+      dispatch({ type: ADD_PRODUCT_SUCCESS, payload: product });
+    }, ({ error }) => dispatch({ type: ADD_PRODUCT_FAILURE, payload: { error } }));
   };
 }
 
@@ -48,7 +47,7 @@ export function deleteProduct(id) {
 
     return request(URL, options).then(() => {
       dispatch({ type: DELETE_PRODUCT_SUCCESS, payload: { id } });
-    }, (error) => dispatch({ type: DELETE_PRODUCT_FAILURE, payload: { error } }));
+    }, ({ error }) => dispatch({ type: DELETE_PRODUCT_FAILURE, payload: { error } }));
   };
 }
 
@@ -59,7 +58,7 @@ export function updateProduct(product) {
     const options = { method: 'PUT', body: JSON.stringify({ name: product.name }) };
 
     return request(URL, options).then((response) => {
-      dispatch({ type: UPDATE_PRODUCT_SUCCESS, payload: getProduct(response) });
-    }, (error) => dispatch({ type: UPDATE_PRODUCT_FAILURE, payload: { error } }));
+      dispatch({ type: UPDATE_PRODUCT_SUCCESS, payload: response });
+    }, ({ error }) => dispatch({ type: UPDATE_PRODUCT_FAILURE, payload: { error } }));
   };
 }
