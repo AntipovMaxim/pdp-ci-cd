@@ -14,7 +14,7 @@ function checkStatus(response) {
   }
 
   const error = new Error(response.statusText);
-  error.error = response;
+  error.response = response;
   throw error;
 }
 

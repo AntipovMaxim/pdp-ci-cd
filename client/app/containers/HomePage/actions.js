@@ -23,7 +23,7 @@ export function loadProducts() {
 
     return request(URL).then((products) => {
       dispatch({ type: GET_PRODUCTS_SUCCESS, payload: products });
-    }, ({ error }) => dispatch({ type: GET_PRODUCTS_FAILURE, payload: { error } }));
+    }, ({ response }) => dispatch({ type: GET_PRODUCTS_FAILURE, payload: { error: response } }));
   };
 }
 
@@ -35,7 +35,7 @@ export function addProduct(value) {
 
     return request(URL, options).then((product) => {
       dispatch({ type: ADD_PRODUCT_SUCCESS, payload: product });
-    }, ({ error }) => dispatch({ type: ADD_PRODUCT_FAILURE, payload: { error } }));
+    }, ({ response }) => dispatch({ type: ADD_PRODUCT_FAILURE, payload: { error: response } }));
   };
 }
 
@@ -47,7 +47,7 @@ export function deleteProduct(id) {
 
     return request(URL, options).then(() => {
       dispatch({ type: DELETE_PRODUCT_SUCCESS, payload: { id } });
-    }, ({ error }) => dispatch({ type: DELETE_PRODUCT_FAILURE, payload: { error } }));
+    }, ({ response }) => dispatch({ type: DELETE_PRODUCT_FAILURE, payload: { error: response } }));
   };
 }
 
@@ -59,6 +59,6 @@ export function updateProduct(product) {
 
     return request(URL, options).then((response) => {
       dispatch({ type: UPDATE_PRODUCT_SUCCESS, payload: response });
-    }, ({ error }) => dispatch({ type: UPDATE_PRODUCT_FAILURE, payload: { error } }));
+    }, ({ response }) => dispatch({ type: UPDATE_PRODUCT_FAILURE, payload: { error: response } }));
   };
 }

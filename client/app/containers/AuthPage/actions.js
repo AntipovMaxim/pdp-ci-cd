@@ -16,7 +16,7 @@ export function register({ password, email }) {
       UserStorage.setAuthorization(user.token);
       dispatch({ type: actionTypes.REGISTER_SUCCESS, payload: user });
       dispatch(push('/'));
-    }, (error) => dispatch({ type: actionTypes.REGISTER_FAILURE, payload: { error } }));
+    }, ({ response }) => dispatch({ type: actionTypes.REGISTER_FAILURE, payload: { error: response } }));
   };
 }
 
@@ -31,7 +31,7 @@ export function login({ password, email }) {
       UserStorage.setAuthorization(user.token);
       dispatch({ type: actionTypes.LOGIN_SUCCESS, payload: user });
       dispatch(push('/'));
-    }, (error) => dispatch({ type: actionTypes.LOGIN_FAILURE, payload: { error } }));
+    }, ({ response }) => dispatch({ type: actionTypes.LOGIN_FAILURE, payload: { error: response } }));
   };
 }
 
@@ -51,6 +51,6 @@ export function getCurrentUser() {
 
     return request(URL).then((user) => {
       dispatch({ type: actionTypes.GET_CURRENT_USER_SUCCESS, payload: user });
-    }, (error) => dispatch({ type: actionTypes.GET_CURRENT_USER_FAILURE, payload: { error } }));
+    }, ({ response }) => dispatch({ type: actionTypes.GET_CURRENT_USER_FAILURE, payload: { error: response } }));
   };
 }
