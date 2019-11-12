@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { createStructuredSelector } from 'reselect';
 
 import {
   register,
@@ -14,8 +13,8 @@ const mapDispatchToProps = {
   login,
 };
 
-const mapStateToProps = createStructuredSelector({
-  loading: selectAuthLoading(),
+const mapStateToProps = (state) => ({
+  loading: selectAuthLoading(state),
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

@@ -28,6 +28,7 @@
     "ip": "1.1.5",
     "minimist": "1.2.0",
     "mongoose": "^5.7.4",
+    "node-fetch": "^2.6.0",
     "warning": "^4.0.3",
     "whatwg-fetch": "3.0.0"
   },

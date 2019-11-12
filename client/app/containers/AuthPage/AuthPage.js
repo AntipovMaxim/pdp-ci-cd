@@ -8,7 +8,7 @@ export default class AuthPage extends React.PureComponent { // eslint-disable-li
     this.state = {
       email: '',
       password: '',
-      isRegister: true,
+      isRegister: false,
     };
 
     this.onChangeEmail = this.onChangeEmail.bind(this);
@@ -74,6 +74,7 @@ export default class AuthPage extends React.PureComponent { // eslint-disable-li
     return (
       <article className="auth-page">
         <section>
+          Try to -
           <button
             type="button"
             onClick={this.toggleAuthMode}
@@ -82,7 +83,7 @@ export default class AuthPage extends React.PureComponent { // eslint-disable-li
             {isRegister ? 'LOGIN' : 'REGISTER'}
           </button>
           <form
-            className="form"
+            className="auth-form"
             onSubmit={this.onSubmitForm}
           >
             <h3>{this.getLabel()}</h3>
@@ -91,7 +92,7 @@ export default class AuthPage extends React.PureComponent { // eslint-disable-li
                 <div className="form__label">Email:</div>
                 <input
                   ref={this.getInputRef}
-                  className="form__input"
+                  className="auth-form__input"
                   id="email"
                   type="text"
                   placeholder="email"
@@ -104,7 +105,7 @@ export default class AuthPage extends React.PureComponent { // eslint-disable-li
               <label htmlFor="password">
                 <div className="form__label">Password:</div>
                 <input
-                  className="form__input"
+                  className="auth-form__input"
                   id="password"
                   type="password"
                   placeholder="password"
@@ -114,6 +115,7 @@ export default class AuthPage extends React.PureComponent { // eslint-disable-li
               </label>
             </div>
             <button
+              className="auth-form__submit"
               type="submit"
               onClick={this.onSubmitForm}
             >

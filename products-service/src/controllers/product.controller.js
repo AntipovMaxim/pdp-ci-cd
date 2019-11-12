@@ -2,7 +2,7 @@ import { ProductsModel } from '../models/product.model';
 
 export const createProduct = (req, res) => {
   const { name } = req.body;
-  const product = { name };
+  const product = { name, userId: req.userId };
 
   if (!name) {
     return res.status(412).json({ title: 'Validation Error', error: 'Name is required' });
@@ -13,17 +13,21 @@ export const createProduct = (req, res) => {
       return res.status(404).send('There is a problem with creating product');
     }
 
-    return res.status(200).json(createdProduct);
+    const response = { id: createdProduct._id, name: createdProduct.name };
+
+    return res.status(200).json(response);
   });
 };
 
 export const getProducts = (req, res) => {
-  ProductsModel.get({}, (err, products) => {
+  ProductsModel.get({ userId: req.userId }, (err, products) => {
     if (err) {
       return res.status(500).send('There was a problem finding the products.');
     }
 
-    return res.status(200).json(products);
+    const response = products.map(product => ({ id: product._id, name: product.name }))
+
+    return res.status(200).json(response);
   });
 };
 
@@ -40,7 +44,9 @@ export const updateProduct = (req, res) => {
       return res.status(404).send('There is a problem with updating product');
     }
 
-    return res.status(200).json(updatedProduct);
+    const response = { id: updatedProduct._id, name: updatedProduct.name };
+
+    return res.status(200).json(response);
   });
 };
 
@@ -50,6 +56,6 @@ export const removeProduct = (req, res) => {
       return res.status(404).send('There is a problem with deleting product');
     }
 
-    return res.status(201).send('Product deleted successfully');
+    return res.status(201).json({ message: 'Product deleted successfully' });
   });
 };
