@@ -1,4 +1,4 @@
-language: node_js
+language: node_js189d7f0ef63aa17bdca9c557a5827906d9cdcf20
 
 node_js:
   - 10
