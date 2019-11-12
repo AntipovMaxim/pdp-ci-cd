@@ -10,7 +10,8 @@
     "launch:auth": "npm --prefix auth-service run start",
     "ci:lint": "bash devops/scripts/ci.lint.sh",
     "ci:install": "bash devops/scripts/ci.install.sh",
-    "ci:test": "bash devops/scripts/ci.test.sh"
+    "ci:test": "bash devops/scripts/ci.test.sh",
+    "ci:auto:merge": "bash devops/scripts/auto_merge.sh"
   },
   "repository": {
     "type": "git",

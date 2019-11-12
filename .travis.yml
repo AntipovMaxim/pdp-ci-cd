@@ -8,7 +8,8 @@ script:
   - npm run ci:lint
   - npm run ci:test
 
-after_success: ./devops/scripts/auto_merge.sh
+after_success:
+  - npm run ci:auto:merge
 
 
 cache: npm
