@@ -11,7 +11,6 @@ import './style.scss';
 import AuthPage from 'containers/AuthPage';
 
 class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
-
   componentDidMount() {
     const { getCurrentUser } = this.props;
     getCurrentUser();
