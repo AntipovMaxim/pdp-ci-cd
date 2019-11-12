@@ -14,7 +14,7 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
           src="https://miro.medium.com/max/4000/1*TNJ7Rpr5G1OJHtKH-IBEFw.png"
           alt="logo"
         />
-        <div>
+        <div> -
           {isAuthenticated ? (
             <div>
               <span className="header__name">User: {userEmail}</span>
