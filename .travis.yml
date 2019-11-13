@@ -9,7 +9,7 @@ script:
   - npm run ci:test
 
 after_success:
-  - npm run ci:auto:merge
+  - npm run ci:publish:docker:hub
 
 
 cache: npm

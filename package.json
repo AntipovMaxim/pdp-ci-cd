@@ -11,7 +11,8 @@
     "ci:lint": "bash devops/scripts/ci.lint.sh",
     "ci:install": "bash devops/scripts/ci.install.sh",
     "ci:test": "bash devops/scripts/ci.test.sh",
-    "ci:auto:merge": "bash devops/scripts/auto_merge.sh"
+    "ci:auto:merge": "bash devops/scripts/auto_merge.sh",
+    "ci:publish:docker:hub": "bash devops/scripts/publish_docker_hub.sh"
   },
   "repository": {
     "type": "git",
