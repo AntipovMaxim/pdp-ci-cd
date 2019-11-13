@@ -7,7 +7,7 @@ if [ "$TRAVIS_BRANCH" == "master" ]; then
     currentDir=$PWD
     echo "Current directory $currentDir"
 
-    docker login -u="$DOCKER_HUB_USERNAME" -p="$DOCKER_PASSWORD" || exit 1
+    docker login -u="$DOCKER_HUB_USERNAME" -p="$DOCKER_HUB_PASSWORD" || exit 1
 
     cd "$currentDir/products-service"
 
