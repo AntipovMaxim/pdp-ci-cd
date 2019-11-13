@@ -23,4 +23,5 @@ after_success:
   - docker tag pdp-auth-service:latest 933078656705.dkr.ecr.us-east-2.amazonaws.com/pdp-auth-service:latest
   - docker push 933078656705.dkr.ecr.us-east-2.amazonaws.com/pdp-auth-service:latest
 
+
 cache: npm
