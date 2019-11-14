@@ -1,7 +1,6 @@
 export GIT_COMMITTER_EMAIL="travis@travis"
 export GIT_COMMITTER_NAME="Travis CI"
 
-echo "$GITHUB_SECRET_TOKEN" ---- token
 
 git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* || exit
 

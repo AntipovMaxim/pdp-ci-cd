@@ -13,6 +13,7 @@ node_js:
 
 script:
    - npm run ci:lint:client
+   - npm run ci:lint:products
 #  - npm run ci:install
 #  - npm run ci:lint
 #  - npm run ci:test
