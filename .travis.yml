@@ -26,6 +26,10 @@ jobs:
     - script: npm run ci:lint:products
     - script: npm run ci:lint:auth
 
+stages:
+  - install
+  - lint
+
 #after_success:
 #  - npm run ci:publish:products:docker:hub
 #  - npm run ci:publish:auth:ecr
