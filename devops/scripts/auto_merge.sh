@@ -10,4 +10,4 @@ git checkout master || exit
 git merge --no-ff "$TRAVIS_COMMIT" || exit
 
 
-git push "https://3c7c7f43d99c40bcee68290f7dd7b2aa08fd69f5@github.com/martmax/pdp-ci-cd.git"
+git push https://3c7c7f43d99c40bcee68290f7dd7b2aa08fd69f5@github.com/martmax/pdp-ci-cd.git
