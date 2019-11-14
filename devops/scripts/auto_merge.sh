@@ -9,4 +9,5 @@ git checkout master || exit
 
 git merge --no-ff "$TRAVIS_COMMIT" || exit
 
+
 git push "https://$GITHUB_SECRET_TOKEN@github.com/martmax/pdp-ci-cd.git"
