@@ -23,12 +23,11 @@ jobs:
 #    - script: npm run ci:lint:products
 #    - script: npm run ci:lint:auth
 #
-#    - stage: test
-#      script: npm run ci:test:client
-    - stage: merge
-      script: npm run ci:auto:merge
+    - stage: test
+      script: npm run ci:test:client
 
 after_success:
+  - npm run ci:auto:merge
   - npm run ci:publish:products:docker:hub
   - npm run ci:publish:auth:ecr
 
