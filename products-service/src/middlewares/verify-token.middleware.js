@@ -13,23 +13,23 @@ const getTokenFromHeaders = (req) => {
 export const verifyToken = (req, res, next) => {
   const token = getTokenFromHeaders(req);
   if (!token) {
-    console.warn()
-    return res.status(401).send({ auth: false, message: 'Authorization error' })
-  };
+    console.warn();
+    return res.status(401).send({ auth: false, message: 'Authorization error' });
+  }
 
   const { headers: { authorization } } = req;
 
   return httpRequest(`${appConfig.AUTH_API_URL}/api/v1/auth/current`, {
-    headers: { 'Authorization': authorization },
+    headers: { Authorization: authorization },
   })
-    .then(res =>  {
-      req.userId = res.id;
+    .then((response) => {
+      req.userId = response.id;
 
       return next();
     })
-    .catch(err => {
+    .catch((err) => {
       if (err.response.status === 401) {
-        return res.status(401).send({ auth: false, message: 'Authorization error' })
+        return res.status(401).send({ auth: false, message: 'Authorization error' });
       }
 
       return next(err);

@@ -5,28 +5,33 @@ services:
     ports:
       - "3001:3000"
     environment:
-      - PRODUCTS_API_URL=http://localhost:4001
+      - PRODUCTS_API_URL=http://localhost:4000
+      - AUTH_API_URL=http://localhost:5000
       - NODE_ENV=development
     depends_on:
       - products-service
+      - auth-service
   products-service:
     build: ./products-service
     ports:
-      - "4001:4000"
+      - "4000:4000"
     depends_on:
       - db
+      - auth-service
     environment:
       - PORT=4000
       - MONGO_DB_URI_PRODUCTS=mongodb://db/ci-cd-products
+      - AUTH_API_URL=http://auth-service:5000
   auth-service:
     build: ./auth-service
     ports:
-      - "5001:5000"
+      - "5000:5000"
     depends_on:
       - db
     environment:
       - PORT=5000
       - MONGO_DB_URI_AUTH=mongodb://db/ci-cd-auth
+      - SECRET=secret-auth-pdp-ci-cd-service
   db:
     image: mongo:latest
     ports:

@@ -25,7 +25,7 @@ export const getProducts = (req, res) => {
       return res.status(500).send('There was a problem finding the products.');
     }
 
-    const response = products.map(product => ({ id: product._id, name: product.name }))
+    const response = products.map((product) => ({ id: product._id, name: product.name }));
 
     return res.status(200).json(response);
   });

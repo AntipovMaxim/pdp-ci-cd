@@ -1,16 +1,34 @@
+sudo: required
+
 language: node_js
 
 node_js:
   - 10
 
+#before_install:
+#  - pip install --user awscli
+#  - export PATH=$PATH:$HOME/.local/bin
+#  - mkdir -p ~/shared
+#  - aws s3 sync s3://travis-build-stages-shared-storage-test/shared ~/shared
+
 script:
   - npm run ci:install
   - npm run ci:lint
-  - npm run ci:test
+#  - npm run ci:test
+
+#jobs:
+#  include:
+#    - stage: lint
+#      script: npm run ci:lint:client
+#    - script: npm run ci:lint:products
+#    - script: npm run ci:lint:auth
+#
+#    - stage: test
+#      script: npm run ci:test:client
 
 after_success:
-  - "curl -o /tmp/travis-automerge https://raw.githubusercontent.com/cdown/travis-automerge/master/travis-automerge"
-  - "chmod a+x /tmp/travis-automerge"
-  - "BRANCHES_TO_MERGE_REGEX='^f/' BRANCH_TO_MERGE_INTO=master GITHUB_REPO=cdown/srt /tmp/travis-automerge"
+  - npm run ci:auto:merge
+#  - npm run ci:publish:products:docker:hub
+#  - npm run ci:publish:auth:ecr
 
 cache: npm

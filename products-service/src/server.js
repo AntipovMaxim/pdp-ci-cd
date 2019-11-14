@@ -3,6 +3,7 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import morgan from 'morgan';
 import { logger } from './util/logger';
 
 import { appConfig } from './config/app.config';
@@ -14,6 +15,8 @@ connectToDB();
 
 // cors
 app.use(cors());
+
+app.use(morgan('dev'));
 
 
 // configure bodyparser

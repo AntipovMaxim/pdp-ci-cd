@@ -14,7 +14,7 @@
     "build:clean": "rimraf ./build",
     "clean": "build:clean",
     "start": "npm run launch:dev",
-    "start:prod": "node index",
+    "start:prod": "node ./src/index",
     "launch:dev": "env-cmd enviroment/local.env nodemon ./src/index"
   },
   "dependencies": {
@@ -42,6 +42,7 @@
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
     "lint-staged": "8.2.1",
+    "morgan": "^1.9.1",
     "nodemon": "^1.19.4",
     "rimraf": "2.6.3"
   },
