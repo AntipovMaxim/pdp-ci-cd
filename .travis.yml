@@ -8,8 +8,8 @@ node_js:
 before_install:
   - pip install --user awscli
   - export PATH=$PATH:$HOME/.local/bin
-  - mkdir -p ~/$TRAVIS_BUILD_NUMBER
-  - aws s3 sync s3://travis-build-stages-shared-storage-test/$TRAVIS_BUILD_NUMBER ~/$TRAVIS_BUILD_NUMBER
+#  - mkdir -p ~/shared
+#  - aws s3 sync s3://travis-build-stages-shared-storage-test/shared ~/shared
 
 #script:
 #  - npm run ci:install
@@ -35,9 +35,9 @@ stages:
   - install
   - lint
 
-#after_success:
-#  - npm run ci:publish:products:docker:hub
-#  - npm run ci:publish:auth:ecr
+after_success:
+  - npm run ci:publish:products:docker:hub
+  - npm run ci:publish:auth:ecr
 
 
 cache: npm
