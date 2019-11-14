@@ -18,11 +18,6 @@ before_install:
 
 jobs:
   include:
-    - stage: install
-      script: npm run ci:install:client
-    - script: npm run ci:install:products
-    - script: npm run ci:install:auth
-
     - stage: lint
       script: npm run ci:lint:client
     - script: npm run ci:lint:products
