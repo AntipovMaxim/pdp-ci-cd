@@ -30,6 +30,8 @@ jobs:
 
     - stage: test
       script: npm run ci:test:client
+    - stage: merge
+      script: npm run ci:auto:merge
 
 stages:
   - install
