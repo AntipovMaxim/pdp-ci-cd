@@ -26,6 +26,9 @@ jobs:
     - script: npm run ci:lint:products
     - script: npm run ci:lint:auth
 
+    - stage: test
+      script: npm run ci:test:client
+
 stages:
   - install
   - lint

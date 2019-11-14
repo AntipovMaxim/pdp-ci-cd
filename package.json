@@ -17,6 +17,7 @@
     "ci:install:products": "bash devops/scripts/ci.install.products.sh",
     "ci:install:auth": "bash devops/scripts/ci.install.auth.sh",
     "ci:test": "bash devops/scripts/ci.test.sh",
+    "ci:test:client": "bash devops/scripts/ci.test.client.sh",
     "ci:auto:merge": "bash devops/scripts/auto_merge.sh",
     "ci:publish:products:docker:hub": "bash devops/scripts/publish_products_docker_hub.sh",
     "ci:publish:auth:ecr": "bash devops/scripts/publish_auth_service_ecr.sh"
