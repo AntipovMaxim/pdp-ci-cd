@@ -32,5 +32,4 @@ after_success:
   - npm run ci:publish:products:docker:hub
   - npm run ci:publish:auth:ecr
 
-
 cache: npm
