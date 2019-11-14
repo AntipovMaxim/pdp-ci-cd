@@ -9,14 +9,26 @@ before_install:
   - pip install --user awscli
   - export PATH=$PATH:$HOME/.local/bin
 
-script:
-  - npm run ci:install
-  - npm run ci:lint
-  - npm run ci:test
+#script:
+#  - npm run ci:install
+#  - npm run ci:lint
+#  - npm run ci:test
 
-after_success:
-  - npm run ci:publish:products:docker:hub
-  - npm run ci:publish:auth:ecr
+jobs:
+  include:
+    - stage: install
+      script: npm run ci:install:client
+    - script: npm run ci:install:products
+    - script: npm run ci:install:auth
+
+    - stage: lint
+      script: npm run ci:lint:client
+    - script: npm run ci:lint:products
+    - script: npm run ci:lint:auth
+
+#after_success:
+#  - npm run ci:publish:products:docker:hub
+#  - npm run ci:publish:auth:ecr
 
 
 cache: npm
