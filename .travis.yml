@@ -28,10 +28,6 @@ jobs:
     - stage: merge
       script: npm run ci:auto:merge
 
-stages:
-  - install
-  - lint
-
 after_success:
   - npm run ci:publish:products:docker:hub
   - npm run ci:publish:auth:ecr
