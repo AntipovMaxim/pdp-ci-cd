@@ -12,19 +12,19 @@ node_js:
 #  - aws s3 sync s3://travis-build-stages-shared-storage-test/shared ~/shared
 
 script:
-  - npm run ci:install
+#  - npm run ci:install
   - npm run ci:lint
 #  - npm run ci:test
 
-jobs:
-  include:
-    - stage: lint
-      script: npm run ci:lint:client
-    - script: npm run ci:lint:products
-    - script: npm run ci:lint:auth
-
-    - stage: test
-      script: npm run ci:test:client
+#jobs:
+#  include:
+#    - stage: lint
+#      script: npm run ci:lint:client
+#    - script: npm run ci:lint:products
+#    - script: npm run ci:lint:auth
+#
+#    - stage: test
+#      script: npm run ci:test:client
 
 after_success:
   - npm run ci:auto:merge
