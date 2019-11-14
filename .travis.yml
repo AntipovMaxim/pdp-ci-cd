@@ -12,8 +12,9 @@ node_js:
 #  - aws s3 sync s3://travis-build-stages-shared-storage-test/shared ~/shared
 
 script:
+   - npm run ci:lint:client
 #  - npm run ci:install
-  - npm run ci:lint
+#  - npm run ci:lint
 #  - npm run ci:test
 
 #jobs:
