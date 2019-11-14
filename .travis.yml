@@ -18,13 +18,13 @@ before_install:
 
 jobs:
   include:
-    - stage: lint
-      script: npm run ci:lint:client
-    - script: npm run ci:lint:products
-    - script: npm run ci:lint:auth
-
-    - stage: test
-      script: npm run ci:test:client
+#    - stage: lint
+#      script: npm run ci:lint:client
+#    - script: npm run ci:lint:products
+#    - script: npm run ci:lint:auth
+#
+#    - stage: test
+#      script: npm run ci:test:client
     - stage: merge
       script: npm run ci:auto:merge
 
