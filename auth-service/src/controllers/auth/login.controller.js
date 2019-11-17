@@ -3,7 +3,7 @@ import { UsersModel } from '../../models/users.model';
 
 export class LoginController extends BaseController {
   async executeImpl() {
-    const { body: { user: { email, password } } } = this.req;
+    const { body: { email, password }  } = this.req;
 
     if (!email || !password) {
       return this.validationError('Email and password is required');
@@ -16,7 +16,7 @@ export class LoginController extends BaseController {
         return this.notFound();
       }
 
-      return this.success({ user: user.toAuthJSON() });
+      return this.success(user.toAuthJSON());
     } catch (error) {
       return this.notFound();
     }

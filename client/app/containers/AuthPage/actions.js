@@ -10,9 +10,9 @@ export function register({ password, email }) {
   return (dispatch) => {
     dispatch({ type: actionTypes.REGISTER_REQUEST });
     const URL = `${apiConfig.AUTH_API_URL}/auth/register`;
-    const options = { method: 'POST', body: JSON.stringify({ user: { email, password } }) };
+    const options = { method: 'POST', body: JSON.stringify({ email, password }) };
 
-    return request(URL, options).then(({ user }) => {
+    return request(URL, options).then((user) => {
       UserStorage.setAuthorization(user.token);
       dispatch({ type: actionTypes.REGISTER_SUCCESS, payload: user });
       dispatch(push('/'));
@@ -25,9 +25,9 @@ export function login({ password, email }) {
   return (dispatch) => {
     dispatch({ type: actionTypes.LOGIN_REQUEST });
     const URL = `${apiConfig.AUTH_API_URL}/auth/login`;
-    const options = { method: 'POST', body: JSON.stringify({ user: { email, password } }) };
+    const options = { method: 'POST', body: JSON.stringify({ email, password }) };
 
-    return request(URL, options).then(({ user }) => {
+    return request(URL, options).then((user) => {
       UserStorage.setAuthorization(user.token);
       dispatch({ type: actionTypes.LOGIN_SUCCESS, payload: user });
       dispatch(push('/'));

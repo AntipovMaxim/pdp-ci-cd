@@ -4,14 +4,19 @@ import session from 'express-session';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
+import swaggerUi from 'swagger-ui-express';
 
 import { logger } from './utils/logger';
 import { appConfig } from './config/app.config';
 import apiRoutes from './routes';
 import { connectToDB } from './database';
+import swaggerDocument from './swagger-config.json';
 
 // Initiate our app
 const app = express();
+
+// Configure swagger
+app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Configure our app
 app.use(cors());

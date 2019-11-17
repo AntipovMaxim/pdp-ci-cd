@@ -30,6 +30,11 @@
         ],
         "summary": "Create product",
         "operationId": "createProduct",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "description": "Product object that needs to be added to the DB",
           "content": {
@@ -55,13 +60,7 @@
               "description": "Validation exception",
               "content": {}
             }
-          },
-          "security": [
-            {
-              "bearerAuth": []
-            }
-          ],
-          "x-codegen-request-body-name": "body"
+          }
         }
       },
       "get": {

@@ -4,19 +4,19 @@ import { UsersModel } from '../../models/users.model';
 
 export class RegisterController extends BaseController {
   async executeImpl() {
-    const { body: { user } } = this.req;
+    const { body: { email, password } } = this.req;
 
-    if (!user.email || !user.password) {
+    if (!email || !password) {
       return this.validationError('Email and password is required');
     }
 
-    const finalUser = new UsersModel(user);
-    finalUser.setPassword(user.password);
+    const finalUser = new UsersModel({ email, password });
+    finalUser.setPassword(password);
 
     try {
       await finalUser.save();
 
-      return this.created({ user: finalUser.toAuthJSON() });
+      return this.created(finalUser.toAuthJSON());
     } catch (error) {
       return this.mongoFail(error);
     }
