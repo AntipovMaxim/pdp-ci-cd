@@ -3,7 +3,7 @@ import { ProductsModel } from '../../models/product.model';
 
 
 class DeleteProductController extends BaseController {
-  async executeImpl () {
+  async executeImpl() {
     try {
       const { id } = this.req.params;
       await ProductsModel.findOneAndDelete({ _id: id });

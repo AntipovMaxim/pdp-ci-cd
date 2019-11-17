@@ -3,11 +3,10 @@ import { ProductsModel } from '../../models/product.model';
 
 
 class UpdateProductController extends BaseController {
-  async executeImpl () {
-    const { body: { name }, params: { id: productId } } = this.req;
-    const product = { name };
+  async executeImpl() {
+    const { body: product, params: { id: productId } } = this.req;
 
-    if (!name) {
+    if (!product.name) {
       return this.validationError('Name is required');
     }
 

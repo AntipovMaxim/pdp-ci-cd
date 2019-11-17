@@ -4,24 +4,22 @@ import { ProductsModel } from '../../models/product.model';
 
 class CreateProductController extends BaseController {
   async executeImpl() {
-    const { name } = this.req.body;
+    const { name: newName } = this.req.body;
     const { userId } = this.req;
-    const product = { name, userId };
+    const product = { name: newName, userId };
 
-    if (!name) {
-      this.validationError('Name is required')
+    if (!product.name) {
+      this.validationError('Name is required');
     }
 
     try {
-      const { _id: id, name  } = await new ProductsModel(product).save();
+      const { _id: id, name } = await new ProductsModel(product).save();
       const response = { id, name };
 
       return this.created(response);
-
     } catch (error) {
       return this.mongoFail(error);
     }
-
   }
 }
 

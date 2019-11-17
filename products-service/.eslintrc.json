@@ -13,6 +13,7 @@
         "sourceType": "module"
     },
     "rules": {
+        "class-methods-use-this": 0,
         "no-underscore-dangle": "warn",
         "no-param-reassign": "off",
         "function-paren-newline": "off",

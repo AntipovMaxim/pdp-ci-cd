@@ -1,5 +1,6 @@
 export class BaseController {
   executeImpl() {
+    return Promise.resolve();
   }
 
   async execute(req, res, next) {
