@@ -30,7 +30,7 @@ UsersSchema.methods.generateJWT = function () {
   return jwt.sign({
     email: this.email,
     id: this._id,
-  }, appConfig.secret, { expiresIn: '15m' });
+  }, appConfig.secret, { expiresIn: '60m' });
 };
 
 UsersSchema.methods.toAuthJSON = function () {

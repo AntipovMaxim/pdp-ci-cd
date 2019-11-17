@@ -14,5 +14,3 @@ export class GetProductsController extends BaseController {
     }
   }
 }
-
-export const getProducts = new GetProductsController();

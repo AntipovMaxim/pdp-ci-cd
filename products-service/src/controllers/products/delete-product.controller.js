@@ -2,7 +2,7 @@ import { BaseController } from '../../util/base-controller';
 import { ProductsModel } from '../../models/product.model';
 
 
-class DeleteProductController extends BaseController {
+export class DeleteProductController extends BaseController {
   async executeImpl() {
     try {
       const { id } = this.req.params;
@@ -14,5 +14,3 @@ class DeleteProductController extends BaseController {
     }
   }
 }
-
-export const deleteProduct = new DeleteProductController();
