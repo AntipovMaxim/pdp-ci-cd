@@ -13,7 +13,6 @@ const getTokenFromHeaders = (req) => {
 export const verifyToken = (req, res, next) => {
   const token = getTokenFromHeaders(req);
   if (!token) {
-    console.warn();
     return res.status(401).send({ auth: false, message: 'Authorization error' });
   }
 
