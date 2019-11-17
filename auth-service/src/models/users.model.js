@@ -1,11 +1,17 @@
 import { Schema, model } from 'mongoose';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
+import uniqueValidator from 'mongoose-unique-validator';
+
 import { appConfig } from '../config/app.config';
 
 
 const UsersSchema = new Schema({
-  email: String,
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
   hash: String,
   salt: String,
 });
@@ -21,15 +27,10 @@ UsersSchema.methods.validatePassword = function (password) {
 };
 
 UsersSchema.methods.generateJWT = function () {
-  const today = new Date();
-  const expirationDate = new Date(today);
-  expirationDate.setDate(today.getDate() + 60);
-
   return jwt.sign({
     email: this.email,
     id: this._id,
-    exp: parseInt(expirationDate.getTime() / 1000, 10),
-  }, appConfig.secret);
+  }, appConfig.secret, { expiresIn: '15m' });
 };
 
 UsersSchema.methods.toAuthJSON = function () {
@@ -39,5 +40,7 @@ UsersSchema.methods.toAuthJSON = function () {
     token: this.generateJWT(),
   };
 };
+
+UsersSchema.plugin(uniqueValidator);
 
 export const UsersModel = model('User', UsersSchema);
