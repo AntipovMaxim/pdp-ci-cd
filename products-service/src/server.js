@@ -42,5 +42,5 @@ app.listen(appConfig.port, (err) => {
   if (err) {
     return logger.error(err.message);
   }
-  logger.appStarted(appConfig.port, prettyHost);
+  return logger.appStarted(appConfig.port, prettyHost);
 });
