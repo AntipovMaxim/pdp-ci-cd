@@ -29,6 +29,7 @@
     "minimist": "1.2.0",
     "mongoose": "^5.7.4",
     "node-fetch": "^2.6.0",
+    "swagger-ui-express": "^4.1.2",
     "warning": "^4.0.3",
     "whatwg-fetch": "3.0.0"
   },

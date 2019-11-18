@@ -1,0 +1,191 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API Auth",
+    "description": "PDP 2019 project by @maxa.",
+    "contact": {
+      "email": "antipov.maxim88@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  },
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Everything about Auth API",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+  "paths": {
+    "/api/v1/auth/register": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Register user",
+        "operationId": "registerUser",
+        "requestBody": {
+          "description": "User object that needs to be added to the DB",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Auth-Request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "New user is created",
+            "schema": {
+              "$ref": "#/components/schemas/Auth-Response"
+            },
+            "404": {
+              "description": "User not created",
+              "content": {}
+            },
+            "412": {
+              "description": "Validation exception",
+              "content": {}
+            }
+          },
+          "x-codegen-request-body-name": "body"
+        }
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Login to the system",
+        "operationId": "loginUser",
+        "requestBody": {
+          "description": "Login with credentials",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Auth-Request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Authenticate successfully",
+            "schema": {
+              "$ref": "#/components/schemas/Auth-Response"
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {}
+          },
+          "412": {
+            "description": "Validation exception",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/v1/auth/current": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Get current user",
+        "operationId": "currentUser",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Found successfully",
+            "schema": {
+              "$ref": "#/components/schemas/Current-Response"
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {}
+          },
+          "412": {
+            "description": "Validation exception",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+        "Auth-Request": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string",
+              "required": true
+            },
+            "password": {
+              "type": "string",
+              "required": true
+            }
+          }
+        },
+        "Auth-Response": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string"
+            },
+            "token": {
+              "type": "string"
+            }
+          }
+        },
+      "Current-Response": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

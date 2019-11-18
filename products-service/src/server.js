@@ -1,17 +1,21 @@
-/* eslint consistent-return:0 */
-
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
+import swaggerUi from 'swagger-ui-express';
+
 import { logger } from './util/logger';
 
 import { appConfig } from './config/app.config';
 import { connectToDB } from './database';
 import apiRoutes from './routes';
+import swaggerDocument from './swagger-config.json';
 
 const app = express();
 connectToDB();
+
+// Configure swagger
+app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // cors
 app.use(cors());
@@ -38,5 +42,5 @@ app.listen(appConfig.port, (err) => {
   if (err) {
     return logger.error(err.message);
   }
-  logger.appStarted(appConfig.port, prettyHost);
+  return logger.appStarted(appConfig.port, prettyHost);
 });

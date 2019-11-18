@@ -2,7 +2,7 @@ import { BaseController } from '../../util/base-controller';
 import { ProductsModel } from '../../models/product.model';
 
 
-class CreateProductController extends BaseController {
+export class CreateProductController extends BaseController {
   async executeImpl() {
     const { name: newName } = this.req.body;
     const { userId } = this.req;
@@ -22,5 +22,3 @@ class CreateProductController extends BaseController {
     }
   }
 }
-
-export const createProduct = new CreateProductController();

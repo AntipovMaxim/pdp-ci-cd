@@ -1,0 +1,230 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API Products",
+    "description": "PDP 2019 project by @maxa.",
+    "contact": {
+      "email": "antipov.maxim88@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  },
+  "tags": [
+    {
+      "name": "Products",
+      "description": "Everything about Products API",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+  "paths": {
+    "/api/v1/products": {
+      "post": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Create product",
+        "operationId": "createProduct",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "Product object that needs to be added to the DB",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product-Request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "New product is created",
+            "schema": {
+              "$ref": "#/components/schemas/Product-Response"
+            },
+            "404": {
+              "description": "Product not created",
+              "content": {}
+            },
+            "412": {
+              "description": "Validation exception",
+              "content": {}
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Get products",
+        "operationId": "getProduct",
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Product-Response"
+              }
+            }
+          },
+          "404": {
+            "description": "Products not found",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/api/v1/products/{productId}": {
+      "put": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Update an existing product",
+        "operationId": "updateProduct",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "description": "ID of product that we want to update",
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "description": "Product object that needs to be updated to the DB",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product-Request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Product is updated",
+            "schema": {
+              "$ref": "#/components/schemas/Product-Response"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied",
+            "content": {}
+          },
+          "404": {
+            "description": "Product not found",
+            "content": {}
+          },
+          "412": {
+            "description": "Validation exception",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "x-codegen-request-body-name": "body"
+      },
+      "delete": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Delete product",
+        "operationId": "deleteProduct",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "description": "ID of product that we want to delete",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product is deleted",
+            "content": {},
+            "404": {
+              "description": "Product not fount",
+              "content": {}
+            },
+            "412": {
+              "description": "Validation exception",
+              "content": {}
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+        "Product-Request": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            }
+          }
+        },
+        "Product-Response": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            }
+          }
+        },
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

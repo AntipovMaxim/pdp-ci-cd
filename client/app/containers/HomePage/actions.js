@@ -19,7 +19,7 @@ import { apiConfig } from '../../config/apiConfig';
 export function loadProducts() {
   return (dispatch) => {
     dispatch({ type: GET_PRODUCTS_REQUEST });
-    const URL = `${apiConfig.PRODUCTS_API_URL}/products/get`;
+    const URL = `${apiConfig.PRODUCTS_API_URL}/products`;
 
     return request(URL).then((products) => {
       dispatch({ type: GET_PRODUCTS_SUCCESS, payload: products });
@@ -30,7 +30,7 @@ export function loadProducts() {
 export function addProduct(value) {
   return (dispatch) => {
     dispatch({ type: ADD_PRODUCT_REQUEST });
-    const URL = `${apiConfig.PRODUCTS_API_URL}/products/create`;
+    const URL = `${apiConfig.PRODUCTS_API_URL}/products`;
     const options = { method: 'POST', body: JSON.stringify({ name: value }) };
 
     return request(URL, options).then((product) => {
@@ -42,7 +42,7 @@ export function addProduct(value) {
 export function deleteProduct(id) {
   return (dispatch) => {
     dispatch({ type: DELETE_PRODUCT_REQUEST });
-    const URL = `${apiConfig.PRODUCTS_API_URL}/products/remove/${id}`;
+    const URL = `${apiConfig.PRODUCTS_API_URL}/products/${id}`;
     const options = { method: 'DELETE' };
 
     return request(URL, options).then(() => {
@@ -54,7 +54,7 @@ export function deleteProduct(id) {
 export function updateProduct(product) {
   return (dispatch) => {
     dispatch({ type: UPDATE_PRODUCT_REQUEST });
-    const URL = `${apiConfig.PRODUCTS_API_URL}/products/update/${product.id}`;
+    const URL = `${apiConfig.PRODUCTS_API_URL}/products/${product.id}`;
     const options = { method: 'PUT', body: JSON.stringify({ name: product.name }) };
 
     return request(URL, options).then((response) => {
