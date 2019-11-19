@@ -12,16 +12,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
-import history from 'utils/history';
+import history from './shared/utils/history';
 import 'sanitize.css/sanitize.css';
 
 // Import root app
-import App from 'containers/App';
+import App from './modules/layout/App';
 
 // Import CSS reset and Global Styles
 import 'styles/theme.scss';
 
-import configureStore from './configureStore';
+import configureStore from './core/redux-store/configureStore';
 
 // Import all initialization stuff
 import { registerOpenSans } from './init';
@@ -48,7 +48,7 @@ if (module.hot) {
   // Hot reloadable React components and translation json files
   // modules.hot.accept does not accept dynamic dependencies,
   // have to be constants at compile-time
-  module.hot.accept(['containers/App'], () => {
+  module.hot.accept(['modules/layout/App'], () => {
     ReactDOM.unmountComponentAtNode(MOUNT_NODE);
     render();
   });
