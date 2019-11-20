@@ -1,6 +1,7 @@
+import get from 'lodash/get';
+
 import React, { useState, useRef } from 'react';
 import { useAuth } from '../../../../core/providers/auth-provider/useAuth';
-import get from 'lodash/get';
 
 import './style.scss';
 

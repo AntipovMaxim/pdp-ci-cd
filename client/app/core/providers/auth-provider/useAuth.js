@@ -50,9 +50,28 @@ export function useProvideAuth() {
     }
   };
 
+  const getCurrentUser = async () => {
+    dispatch({ type: ACTION_TYPES.GET_CURRENT_USER_REQUEST });
+    const token = UserStorage.getAuthorization();
+
+    try {
+      const { data } = await httpRequest.get('/current', {
+        headers: {
+          Accept: 'application/json, text/plain, */*',
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+      });
+      dispatch({ type: ACTION_TYPES.GET_CURRENT_USER_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({ type: ACTION_TYPES.GET_CURRENT_USER_FAILURE, payload: error.response.data });
+    }
+  };
+
   const logout = () => {
     UserStorage.removeAuthorization();
     dispatch({ type: ACTION_TYPES.AUTH_LOGOUT });
+    router.push('/auth');
   };
 
   return {
@@ -60,5 +79,6 @@ export function useProvideAuth() {
     login,
     register,
     logout,
+    getCurrentUser,
   };
 }

@@ -6,13 +6,12 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { routerMiddleware } from 'connected-react-router';
 import createReducer from './reducers';
-import { authInterceptor } from '../middlewares/authInterceptor';
 
 
 export default function configureStore(initialState = {}, history) {
   // Create the store with two middlewares
   // 2. routerMiddleware: Syncs the location/URL path to the state
-  const middlewares = [authInterceptor, thunkMiddleware, routerMiddleware(history)];
+  const middlewares = [thunkMiddleware, routerMiddleware(history)];
 
   const enhancers = [applyMiddleware(...middlewares)];
 
