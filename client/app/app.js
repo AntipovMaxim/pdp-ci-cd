@@ -17,6 +17,7 @@ import 'sanitize.css/sanitize.css';
 
 // Import root app
 import App from './modules/layout/App';
+import { AuthProvider } from './core/providers/auth-provider/AuthProvider';
 
 // Import CSS reset and Global Styles
 import 'styles/theme.scss';
@@ -37,7 +38,9 @@ const render = () => {
   ReactDOM.render(
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </ConnectedRouter>
     </Provider>,
     MOUNT_NODE
