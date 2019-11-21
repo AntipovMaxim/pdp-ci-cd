@@ -11,7 +11,6 @@ const AuthPageNew = () => {
   const initialFormState = { email: '', password: '' };
   const [formData, setFormData] = useState(initialFormState);
   const label = isRegister ? 'REGISTER' : 'LOGIN';
-  const inputEl = useRef(null);
   const error = get(auth, 'user.error.message', '');
 
 
@@ -60,7 +59,6 @@ const AuthPageNew = () => {
             <label htmlFor="email">
               <div className="form__label">Email:</div>
               <input
-                ref={inputEl}
                 className="auth-form__input"
                 id="email"
                 type="text"
