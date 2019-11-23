@@ -7,7 +7,6 @@ notifications:
 before_script:
   - chmod +x devops/scripts/build-condition.sh
   - chmod +x devops/scripts/ci.lint.split.sh
-  - chmod +x devops/scripts/ci.run.lint.sh
 
 branches:
   only:
@@ -18,4 +17,4 @@ matrix:
     - env: TARGET=auth-service
     - env: TARGET=products-service
 
-script: ./devops/scripts/ci.run.lint.sh
+script: if ./devops/scripts/build-condition.sh $TRAVIS_COMMIT_RANGE $TARGET; then ./devops/scripts/ci.lint.split.sh $TARGET; else echo "$TARGET is NOT being built"; fi
