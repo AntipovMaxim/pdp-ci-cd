@@ -15,7 +15,7 @@ fi
 
 
 
-if [ git diff --name-only $TRAVIS_COMMIT_RANGE | sort -u | uniq | grep $TARGET > /dev/null ]; then
+if [[ git diff --name-only $TRAVIS_COMMIT_RANGE | sort -u | uniq | grep $TARGET ]]; then
   echo "$TARGET BUILLLLLLLLLDDDDDDDDD"
 else
   echo "$TARGET NOOOOOOOT BUILLLLLLLLLDDDDDDDDD"
