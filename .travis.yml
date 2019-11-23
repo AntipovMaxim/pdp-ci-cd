@@ -16,4 +16,4 @@ matrix:
     - env: TARGET=auth-service
     - env: TARGET=products-service
 
-script: if ./devops/scripts/build-condition.sh $TRAVIS_COMMIT_RANGE $TARGET; then echo "$TARGET is being built" && cd $TARGET && npm install && npm run test; else echo "$TARGET is NOT being built"; fi
+script: if ./devops/scripts/build-condition.sh $TRAVIS_COMMIT_RANGE $TARGET; then ./devops/scripts/ci.lint.split.sh $TARGET; else echo "$TARGET is NOT being built"; fi
