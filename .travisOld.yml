@@ -1,0 +1,46 @@
+sudo: required
+
+language: node_js
+
+node_js:
+  - 10
+
+#before_install:
+#  - pip install --user awscli
+#  - export PATH=$PATH:$HOME/.local/bin
+#  - mkdir -p ~/shared
+#  - aws s3 sync s3://travis-build-stages-shared-storage-test/shared ~/shared
+
+matrix:
+  include:
+    - env: TARGET=client
+    - env: TARGET=auth-service
+    - env: TARGET=products-service
+
+#script: if ./devops/scripts/build-condition.sh $TRAVIS_COMMIT_RANGE $TARGET; then echo "$TARGET is being built" && cd $TARGET && npm install && npm run test; else echo "$TARGET is NOT being built"; fi
+script:
+  - npm run ci:split
+#script:
+#   - npm run ci:lint:client
+#   - npm run ci:lint:products
+#   - npm run ci:lint:auth
+#  - npm run ci:install
+#  - npm run ci:lint
+#  - npm run ci:test
+
+#jobs:
+#  include:
+#    - stage: lint
+#      script: npm run ci:lint:client
+#    - script: npm run ci:lint:products
+#    - script: npm run ci:lint:auth
+#
+#    - stage: test
+#      script: npm run ci:test:client
+
+#after_success:
+#  - npm run ci:auto:merge
+#  - npm run ci:publish:products:docker:hub
+#  - npm run ci:publish:auth:ecr
+
+cache: npm
