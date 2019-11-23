@@ -1,9 +1,10 @@
-sudo: required
+language: generic
+#sudo: required
 
-language: node_js
+#language: node_js
 
-node_js:
-  - 10
+#node_js:
+#  - 10
 
 #before_install:
 #  - pip install --user awscli
@@ -19,6 +20,8 @@ matrix:
 
 script: if ./devops/scripts/build-condition.sh $TRAVIS_COMMIT_RANGE $TARGET; then echo "$TARGET is being built" && cd $TARGET && npm install && npm run test; else echo "$TARGET is NOT being built"; fi
 
+#script:
+#  - npm run ci:split
 #script:
 #   - npm run ci:lint:client
 #   - npm run ci:lint:products
