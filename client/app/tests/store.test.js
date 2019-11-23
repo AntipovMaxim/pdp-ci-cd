@@ -3,7 +3,7 @@
  */
 
 import { browserHistory } from 'react-router-dom';
-import configureStore from '../configureStore';
+import configureStore from '../core/redux-store/configureStore';
 
 describe('configureStore params', () => {
   it('should call window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__', () => {
