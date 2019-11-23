@@ -1,9 +1,8 @@
-#!/bin/bash
 
-echo "Commit range - $TRAVIS_COMMIT_RANGE $1"
-echo " Target -  $TARGET $2"
+echo "Commit range - $TRAVIS_COMMIT_RANGE"
+echo " Target -  $TARGET"
 
-if [[ -z $TRAVIS_COMMIT_RANGE ]]; then
+if [ -z $TRAVIS_COMMIT_RANGE ]; then
     echo "Commit range cannot be empty"
     exit 1
 fi
@@ -15,7 +14,7 @@ fi
 
 CHANGED_FILES=($(git diff --name-only $TRAVIS_COMMIT_RANGE))
 
-echo CHANGED_FILES
+echo "CHANGED_FILES"
 
 
 
