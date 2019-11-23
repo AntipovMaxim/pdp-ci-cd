@@ -1,7 +1,12 @@
-echo "Lint client"
 currentDir=$PWD
 
-cd "$currentDir/$1"
-echo "Lint $1"
+cd "$currentDir/$TARGET"
+
+echo "INSTALL $TARGET"
 npm install
+
+echo "LINT $TARGET"
 npm run lint
+
+echo "TEST $TARGET"
+npm run test

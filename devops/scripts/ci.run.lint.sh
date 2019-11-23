@@ -1,1 +1,1 @@
-if ./devops/scripts/build-condition.sh $TRAVIS_COMMIT_RANGE $TARGET; then ./devops/scripts/ci.lint.split.sh $TARGET; else echo "$TARGET is NOT being built"; fi
+if ./devops/scripts/build-condition.sh; then ./devops/scripts/ci.lint.split.sh; else echo "$TARGET is NOT being built"; fi
