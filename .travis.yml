@@ -5,9 +5,9 @@ notifications:
   email: false
 
 before_script:
-  - chmod +x devops/scripts/build-condition.sh
-  - chmod +x devops/scripts/ci.lint.split.sh
-  - chmod +x devops/scripts/ci.run.lint.sh
+  - chmod +x devops/scripts/check-target-changes.sh
+  - chmod +x devops/scripts/ci.run-target.sh
+  - chmod +x devops/scripts/ci.run-all.sh
 
 branches:
   only:
@@ -18,4 +18,4 @@ matrix:
     - env: TARGET=auth-service
     - env: TARGET=products-service
 
-script: ./devops/scripts/ci.run.lint.sh
+script: ./devops/scripts/ci.run-all.sh
