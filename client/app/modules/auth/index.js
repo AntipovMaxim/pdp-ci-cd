@@ -1,1 +1,1 @@
-export { default } from './components/auth-page/AuthPageNew';
+export { default } from './components/auth-page/AuthPage';

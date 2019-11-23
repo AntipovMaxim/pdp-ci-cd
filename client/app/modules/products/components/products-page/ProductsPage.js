@@ -3,7 +3,7 @@ import './style.scss';
 import { useProducts } from '../../hooks/useProducts';
 
 
-const ProductsPageNew = () => {
+const ProductsPage = () => {
   const {
     data,
     loadProducts,
@@ -95,4 +95,4 @@ const ProductsPageNew = () => {
   );
 };
 
-export default ProductsPageNew;
+export default ProductsPage;

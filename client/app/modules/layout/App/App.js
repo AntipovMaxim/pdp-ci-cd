@@ -8,7 +8,7 @@ import Header from '../Header';
 import Footer from '../Footer';
 import './style.scss';
 import AuthPage from '../../auth/Loadable';
-import { useAuth } from '../../../core/providers/auth-provider/useAuth';
+import { useAuth } from '../../auth/hooks/useAuth';
 
 const App = () => {
   const auth = useAuth();

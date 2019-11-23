@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { useProvideAuth, authContext } from './useAuth';
+import { useProvideAuth, authContext } from '../../../modules/auth/hooks/useAuth';
 
 export function AuthProvider({ children }) {
   const auth = useProvideAuth();

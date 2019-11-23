@@ -1,17 +1,22 @@
 import get from 'lodash/get';
 
-import React, { useState, useRef } from 'react';
-import { useAuth } from '../../../../core/providers/auth-provider/useAuth';
+import React, { useState, useRef, useEffect } from 'react';
+import { useAuth } from '../../hooks/useAuth';
 
 import './style.scss';
 
-const AuthPageNew = () => {
+const AuthPage = () => {
   const auth = useAuth();
+  const loginInputRef = useRef(null);
   const [isRegister, setAuthMode] = useState(false);
   const initialFormState = { email: '', password: '' };
   const [formData, setFormData] = useState(initialFormState);
   const label = isRegister ? 'REGISTER' : 'LOGIN';
   const error = get(auth, 'user.error.message', '');
+
+  useEffect(() => {
+    loginInputRef.current.focus();
+  }, []);
 
 
   const handleInputChange = (event) => {
@@ -41,13 +46,13 @@ const AuthPageNew = () => {
   return (
     <article className="auth-page">
       <section>
-        Try to -
+        {isRegister ? 'Already registered? Go to - ' : 'Do not have account? Go to - '}
         <button
           type="button"
           onClick={toggleAuthMode}
           className="auth-page__link"
         >
-          {isRegister ? 'LOGIN' : 'REGISTER'}
+          {isRegister ? 'Login' : 'Register'}
         </button>
         <form
           className="auth-form"
@@ -59,6 +64,7 @@ const AuthPageNew = () => {
             <label htmlFor="email">
               <div className="form__label">Email:</div>
               <input
+                ref={loginInputRef}
                 className="auth-form__input"
                 id="email"
                 type="text"
@@ -96,4 +102,4 @@ const AuthPageNew = () => {
   );
 };
 
-export default AuthPageNew;
+export default AuthPage;

@@ -25,4 +25,4 @@
 //
 // const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
-export { default } from './components/products-page/ProductsPageNew';
+export { default } from './components/products-page/ProductsPage';
