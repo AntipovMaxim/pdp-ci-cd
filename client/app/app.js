@@ -5,6 +5,7 @@
  * code.
  */
 
+
 import '@babel/polyfill';
 
 // Import all the third party stuff
