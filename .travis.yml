@@ -19,7 +19,3 @@ matrix:
     - env: TARGET=products-service
 
 script: ./devops/scripts/ci.run-all.sh
-
-after_success:
-  - npm run ci:auto:merge
-  - npm run ci:publish:products:docker:hub
