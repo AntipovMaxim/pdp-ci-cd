@@ -27,7 +27,7 @@ app.use(session({
   secret: appConfig.secret, cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false,
 }));
 
-// Connect to DB
+// Connect to DB!
 connectToDB();
 
 // Configure Mongoose
