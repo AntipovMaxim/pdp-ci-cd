@@ -21,7 +21,7 @@ log.setLevel(logging.INFO)
 TRAVIS_JOB_NUMBER = 'TRAVIS_JOB_NUMBER'
 TRAVIS_BUILD_ID = 'TRAVIS_BUILD_ID'
 POLLING_INTERVAL = 'LEADER_POLLING_INTERVAL'
-GITHUB_TOKEN = 'GITHUB_TOKEN'
+GITHUB_SECRET_TOKEN = 'GITHUB_SECRET_TOKEN'
 
 
 # Travis API entry point, there are at least https://api.travis-ci.com and https://api.travis-ci.org
@@ -29,7 +29,7 @@ travis_entry = sys.argv[1] if len(sys.argv) > 1 else 'https://api.travis-ci.org'
 
 build_id = os.getenv(TRAVIS_BUILD_ID)
 polling_interval = int(os.getenv(POLLING_INTERVAL, '5'))
-gh_token = os.getenv(GITHUB_TOKEN)
+gh_token = os.getenv(GITHUB_SECRET_TOKEN)
 
 # assume, first job is the leader
 
