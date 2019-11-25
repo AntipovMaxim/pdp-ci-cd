@@ -41,5 +41,9 @@ script: ./devops/scripts/ci.run-all.sh
 jobs:
   include:
     - stage: deploy
+      env:
+        - TARGET=client
+        - TARGET=auth-service
+        - TARGET=products-service
       script: ./devops/scripts/auto_merge.sh
 
