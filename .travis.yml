@@ -20,6 +20,7 @@ matrix:
 
 script: ./devops/scripts/ci.run-all.sh
 
-before_deploy: "echo 'ready?'"
+before_deploy: ./devops/scripts/auto_merge.sh
+after_success: ./devops/scripts/auto_merge.sh
 deploy:
 # ⋮
