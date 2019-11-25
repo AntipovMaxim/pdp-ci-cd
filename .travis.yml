@@ -7,10 +7,13 @@ notifications:
 before_script:
   - chmod +x devops/scripts/check-target-changes.sh
   - chmod +x devops/scripts/ci.run-target.sh
+  - chmod +x devops/scripts/ci.run-target.lint.sh
+  - chmod +x devops/scripts/ci.run-target.test.sh
   - chmod +x devops/scripts/ci.run-all.sh
   - chmod +x devops/scripts/auto_merge.sh
   - chmod +x devops/scripts/after_success.sh
   - chmod +x devops/scripts/ci.lint.sh
+  - chmod +x devops/scripts/ci.test.sh
 
 branches:
   only:
@@ -48,4 +51,10 @@ jobs:
       name: "Linting auth-service app"
     - script: ./devops/scripts/ci.lint.sh products-service
       name: "Linting products-service app"
-
+    - stage: test
+      name: "Testing client app"
+      script: ./devops/scripts/ci.test.sh client
+    - script: ./devops/scripts/ci.test.sh auth-service
+      name: "Testing auth-service app"
+    - script: ./devops/scripts/ci.test.sh products-service
+      name: "Testing products-service app"
