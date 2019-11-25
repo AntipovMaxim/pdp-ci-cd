@@ -42,7 +42,10 @@ branches:
 jobs:
   include:
     - stage: lint
+      name: "Linting client app"
       script: ./devops/scripts/ci.lint.sh client
+    - name: "Linting auth-service app"
     - script: ./devops/scripts/ci.lint.sh auth-service
+    - name: "Linting products-service app"
     - script: ./devops/scripts/ci.lint.sh products-service
 

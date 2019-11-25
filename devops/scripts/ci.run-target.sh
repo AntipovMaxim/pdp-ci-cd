@@ -1,12 +1,12 @@
 currentDir=$PWD
 
-cd "$currentDir/$TARGET"
+cd "$currentDir/$1"
 
-echo "INSTALL $TARGET"
+echo "INSTALL $1"
 npm install
 
-echo "LINT $TARGET"
+echo "LINT $1"
 npm run lint
 
-echo "TEST $TARGET"
+echo "TEST $1"
 npm run test
