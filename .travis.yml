@@ -62,8 +62,8 @@ jobs:
       name: "Testing products-service app"
     - stage: build
       name: "Building client app"
-      script: ./devops/scripts/ci.test.sh client
-    - script: ./devops/scripts/ci.test.sh auth-service
+      script: ./devops/scripts/ci.build.sh client
+    - script: ./devops/scripts/ci.build.sh auth-service
       name: "Building auth-service app"
-    - script: ./devops/scripts/ci.test.sh products-service
+    - script: ./devops/scripts/ci.build.sh products-service
       name: "Building products-service app"
