@@ -37,3 +37,9 @@ env:
 
 script: ./devops/scripts/ci.run-all.sh
 
+
+jobs:
+  include:
+    - stage: deploy
+      script: ./devops/scripts/auto_merge.sh
+
