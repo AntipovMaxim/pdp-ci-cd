@@ -14,7 +14,7 @@ import swaggerDocument from './swagger-config.json';
 const app = express();
 connectToDB();
 
-// Configure swagger!!
+// Configure swagger!!!
 app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // cors
