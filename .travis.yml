@@ -14,6 +14,8 @@ before_script:
   - chmod +x devops/scripts/after_success.sh
   - chmod +x devops/scripts/ci.lint.sh
   - chmod +x devops/scripts/ci.test.sh
+  - chmod +x devops/scripts/ci.build.sh
+  - chmod +x devops/scripts/ci.build.docker.hub.sh
 
 branches:
   only:
@@ -58,3 +60,10 @@ jobs:
       name: "Testing auth-service app"
     - script: ./devops/scripts/ci.test.sh products-service
       name: "Testing products-service app"
+    - stage: build
+      name: "Building client app"
+      script: ./devops/scripts/ci.test.sh client
+    - script: ./devops/scripts/ci.test.sh auth-service
+      name: "Building auth-service app"
+    - script: ./devops/scripts/ci.test.sh products-service
+      name: "Building products-service app"
