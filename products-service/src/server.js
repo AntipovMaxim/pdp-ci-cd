@@ -23,7 +23,7 @@ app.use(cors());
 app.use(morgan('dev'));
 
 
-// configure bodyparser
+// configure bodyparser!
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
