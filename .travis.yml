@@ -19,3 +19,5 @@ matrix:
     - env: TARGET=products-service
 
 script: ./devops/scripts/ci.run-all.sh
+
+before_deploy: ./devops/scripts/auto_merge.sh
