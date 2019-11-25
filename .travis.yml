@@ -10,6 +10,7 @@ before_script:
   - chmod +x devops/scripts/ci.run-all.sh
   - chmod +x devops/scripts/auto_merge.sh
   - chmod +x devops/scripts/after_success.sh
+  - chmod +x devops/scripts/ci.lint.sh
 
 branches:
   only:
@@ -30,20 +31,18 @@ branches:
 #    - env: TARGET=auth-service
 #    - env: TARGET=products-service
 
-env:
-  - TARGET=client
-  - TARGET=auth-service
-  - TARGET=products-service
-
-script: ./devops/scripts/ci.run-all.sh
+#env:
+#  - TARGET=client
+#  - TARGET=auth-service
+#  - TARGET=products-service
+#
+#script: ./devops/scripts/ci.run-all.sh
 
 
 jobs:
   include:
-    - stage: deploy
-      env:
-        - TARGET=client
-        - TARGET=auth-service
-        - TARGET=products-service
-      script: ./devops/scripts/auto_merge.sh
+    - stage: lint
+      script: ./devops/scripts/ci.lint.sh client lint
+    - script: ./devops/scripts/ci.lint.sh auth-service lint
+    - script: ./devops/scripts/ci.lint.sh products-service lint
 
