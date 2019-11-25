@@ -1,5 +1,5 @@
 pull_request_rules:
-  - name: automatic merge on approval and CI pass
+  - name: Travis CI - Pull Request
     conditions:
       - "#approved-reviews-by>=0"
       - status-success=continuous-integration/travis-ci/pr
