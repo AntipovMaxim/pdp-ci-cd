@@ -45,7 +45,7 @@ jobs:
       name: "Linting client app"
       script: ./devops/scripts/ci.lint.sh client
     - script: ./devops/scripts/ci.lint.sh auth-service
-    - name: "Linting auth-service app"
+      name: "Linting auth-service app"
     - script: ./devops/scripts/ci.lint.sh products-service
-    - name: "Linting products-service app"
+      name: "Linting products-service app"
 
