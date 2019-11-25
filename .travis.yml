@@ -9,6 +9,7 @@ before_script:
   - chmod +x devops/scripts/ci.run-target.sh
   - chmod +x devops/scripts/ci.run-all.sh
   - chmod +x devops/scripts/auto_merge.sh
+  - chmod +x devops/scripts/after_success.sh
 
 branches:
   only:
@@ -24,10 +25,4 @@ script: ./devops/scripts/ci.run-all.sh
 after_success:
   - python travis_after_all.py https://api.travis-ci.com
   - export $(cat .to_export_back)
-  - if [ "$BUILD_LEADER" = "YES" ]; then
-      if [ "$BUILD_AGGREGATE_STATUS" = "others_succeeded" ]; then
-        echo "All jobs succeeded! PUBLISHING..."
-      else
-        echo "Some jobs failed"
-      fi
-    fi
+  - ./devops/scripts/after_success.sh
