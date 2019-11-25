@@ -8,6 +8,7 @@ before_script:
   - chmod +x devops/scripts/check-target-changes.sh
   - chmod +x devops/scripts/ci.run-target.sh
   - chmod +x devops/scripts/ci.run-all.sh
+  - chmod +x devops/scripts/auto_merge.sh
 
 branches:
   only:
