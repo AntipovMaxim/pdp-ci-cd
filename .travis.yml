@@ -42,7 +42,7 @@ branches:
 jobs:
   include:
     - stage: lint
-      script: ./devops/scripts/ci.lint.sh client lint
-    - script: ./devops/scripts/ci.lint.sh auth-service lint
-    - script: ./devops/scripts/ci.lint.sh products-service lint
+      script: ./devops/scripts/ci.lint.sh client
+    - script: ./devops/scripts/ci.lint.sh auth-service
+    - script: ./devops/scripts/ci.lint.sh products-service
 
