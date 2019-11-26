@@ -14,7 +14,7 @@ import swaggerDocument from './swagger-config.json';
 const app = express();
 connectToDB();
 
-// Configure swagger!!
+// Configure swagger!!!
 app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // cors
@@ -37,7 +37,7 @@ const customHost = process.env.HOST;
 // const host = customHost || null; // Let http.Server use its default IPv6/4 host
 const prettyHost = customHost || 'localhost';
 
-// Start your app!
+// Start your app!!
 app.listen(appConfig.port, (err) => {
   if (err) {
     return logger.error(err.message);

@@ -7,6 +7,3 @@ npm install
 
 echo "LINT $1"
 npm run lint
-
-echo "TEST $1"
-npm run test
