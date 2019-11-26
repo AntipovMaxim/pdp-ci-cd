@@ -15,7 +15,7 @@ setup(app, {
 
 const prettyHost = process.env.HOST || 'localhost';
 
-// Start your app.
+// Start your app!
 app.listen(port, (err) => {
   if (err) {
     return logger.error(err.message);
