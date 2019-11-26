@@ -7,19 +7,68 @@ notifications:
 before_script:
   - chmod +x devops/scripts/check-target-changes.sh
   - chmod +x devops/scripts/ci.run-target.sh
+  - chmod +x devops/scripts/ci.run-target.lint.sh
+  - chmod +x devops/scripts/ci.run-target.test.sh
   - chmod +x devops/scripts/ci.run-all.sh
+  - chmod +x devops/scripts/auto_merge.sh
+  - chmod +x devops/scripts/after_success.sh
+  - chmod +x devops/scripts/ci.lint.sh
+  - chmod +x devops/scripts/ci.test.sh
+  - chmod +x devops/scripts/ci.build.sh
+  - chmod +x devops/scripts/ci.build.docker.hub.sh
 
 branches:
   only:
     - master
-matrix:
+
+#jobs:
+#  include:
+#    - stage: lint-test
+#      script: ./devops/scripts/ci.run-all.sh client
+#    - script: ./devops/scripts/ci.run-all.sh auth-service
+#    - script: ./devops/scripts/ci.run-all.sh products
+#    - stage: deploy
+#      script: ./deploy
+
+#matrix:
+#  include:
+#    - env: TARGET=client
+#    - env: TARGET=auth-service
+#    - env: TARGET=products-service
+
+#env:
+#  - TARGET=client
+#  - TARGET=auth-service
+#  - TARGET=products-service
+#
+#script: ./devops/scripts/ci.run-all.sh
+
+
+jobs:
   include:
-    - env: TARGET=client
-    - env: TARGET=auth-service
-    - env: TARGET=products-service
-
-script: ./devops/scripts/ci.run-all.sh
-
-before_deploy: "echo 'ready?'"
-deploy:
-# ⋮
+    - stage: lint
+      if: type = pull_request
+      name: "Linting client app"
+      script: ./devops/scripts/ci.lint.sh client
+    - script: ./devops/scripts/ci.lint.sh auth-service
+      name: "Linting auth-service app"
+    - script: ./devops/scripts/ci.lint.sh products-service
+      name: "Linting products-service app"
+    - stage: test
+      if: type = pull_request
+      name: "Testing client app"
+      script: ./devops/scripts/ci.test.sh client
+    - script: ./devops/scripts/ci.test.sh auth-service
+      name: "Testing auth-service app"
+    - script: ./devops/scripts/ci.test.sh products-service
+      name: "Testing products-service app"
+    - stage: build
+      if: type = push
+      name: "Building client app"
+      script: ./devops/scripts/ci.build.sh client
+    - script: ./devops/scripts/ci.build.sh auth-service
+      name: "Building auth-service app"
+      if: type = push
+    - script: ./devops/scripts/ci.build.sh products-service
+      name: "Building products-service app"
+      if: type = push
