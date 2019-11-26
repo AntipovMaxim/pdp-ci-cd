@@ -47,6 +47,7 @@ branches:
 jobs:
   include:
     - stage: lint
+      if: type = pull_request
       name: "Linting client app"
       script: ./devops/scripts/ci.lint.sh client
     - script: ./devops/scripts/ci.lint.sh auth-service
@@ -54,6 +55,7 @@ jobs:
     - script: ./devops/scripts/ci.lint.sh products-service
       name: "Linting products-service app"
     - stage: test
+      if: type = pull_request
       name: "Testing client app"
       script: ./devops/scripts/ci.test.sh client
     - script: ./devops/scripts/ci.test.sh auth-service
@@ -61,6 +63,7 @@ jobs:
     - script: ./devops/scripts/ci.test.sh products-service
       name: "Testing products-service app"
     - stage: build
+      if: type = push
       name: "Building client app"
       script: ./devops/scripts/ci.build.sh client
     - script: ./devops/scripts/ci.build.sh auth-service
