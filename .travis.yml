@@ -63,7 +63,6 @@ jobs:
     - script: ./devops/scripts/ci.test.sh products-service
       name: "Testing products-service app"
     - stage: build
-      if: type = push
       name: "Building client app"
     - if: type = push
       script: ./devops/scripts/ci.build.sh client
@@ -72,4 +71,4 @@ jobs:
     - if: type = push
     - script: ./devops/scripts/ci.build.sh products-service
       name: "Building products-service app"
-    - if: type = push
+      if: type = push
