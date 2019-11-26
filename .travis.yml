@@ -52,16 +52,20 @@ jobs:
       script: ./devops/scripts/ci.lint.sh client
     - script: ./devops/scripts/ci.lint.sh auth-service
       name: "Linting auth-service app"
+      if: type = pull_request
     - script: ./devops/scripts/ci.lint.sh products-service
       name: "Linting products-service app"
+      if: type = pull_request
     - stage: test
       if: type = pull_request
       name: "Testing client app"
       script: ./devops/scripts/ci.test.sh client
     - script: ./devops/scripts/ci.test.sh auth-service
       name: "Testing auth-service app"
+      if: type = pull_request
     - script: ./devops/scripts/ci.test.sh products-service
       name: "Testing products-service app"
+      if: type = pull_request
     - stage: build
       if: type = push
       name: "Building client app"
