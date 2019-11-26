@@ -15,7 +15,7 @@ import swaggerDocument from './swagger-config.json';
 // Initiate our app
 const app = express();
 
-// Configure swagger!
+// Configure swagger!!
 app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Configure our app
