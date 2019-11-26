@@ -16,6 +16,8 @@ before_script:
   - chmod +x devops/scripts/ci.test.sh
   - chmod +x devops/scripts/ci.build.sh
   - chmod +x devops/scripts/ci.build.docker.hub.sh
+  - chmod +x devops/scripts/ci.build-target.ecr.sh
+  - chmod +x devops/scripts/ci.init-build.ecr.sh
 
 branches:
   only:
@@ -66,7 +68,7 @@ jobs:
     - script: ./devops/scripts/ci.test.sh products-service
       name: "Testing products-service app"
       if: type = pull_request
-    - stage: build
+    - stage: build to DOCKER HUB
       if: type = push
       name: "Building client app"
       script: ./devops/scripts/ci.build.sh client
@@ -74,5 +76,15 @@ jobs:
       name: "Building auth-service app"
       if: type = push
     - script: ./devops/scripts/ci.build.sh products-service
+      name: "Building products-service app"
+      if: type = push
+    - stage: build to ECR
+      if: type = push
+      name: "Building client app"
+      script: ./devops/scripts/ci.init-build.ecr.sh client
+    - script: ./devops/scripts/ci.init-build.ecr.sh auth-service
+      name: "Building auth-service app"
+      if: type = push
+    - script: ./devops/scripts/ci.init-build.ecr.sh products-service
       name: "Building products-service app"
       if: type = push
