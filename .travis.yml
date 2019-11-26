@@ -64,11 +64,9 @@ jobs:
       name: "Testing products-service app"
     - stage: build
       name: "Building client app"
-    - if: type = push
       script: ./devops/scripts/ci.build.sh client
     - script: ./devops/scripts/ci.build.sh auth-service
       name: "Building auth-service app"
-    - if: type = push
     - script: ./devops/scripts/ci.build.sh products-service
       name: "Building products-service app"
       if: type = push
