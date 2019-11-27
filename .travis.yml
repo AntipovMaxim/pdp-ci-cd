@@ -38,23 +38,26 @@ branches:
 #    - env: TARGET=auth-service
 #    - env: TARGET=products-service
 
-#env:
-#  - TARGET=client
-#  - TARGET=auth-service
-#  - TARGET=products-service
-#
-#script: ./devops/scripts/ci.run-all.sh
+env:
+  - TARGET=client
+  - TARGET=auth-service
+  - TARGET=products-service
+
+script: ./devops/scripts/ci.run-all.sh
 
 
 jobs:
   include:
+    - env: TARGET=client
+    - env: TARGET=auth-service
+    - env: TARGET=products-service
     - stage: lint
       if: type = pull_request
 #      name: "Linting client app"
-      env:
-        - TARGET=client
-        - TARGET=auth-service
-        - TARGET=products-service
+#      env:
+#        - TARGET=client
+#        - TARGET=auth-service
+#        - TARGET=products-service
       script: ./devops/scripts/ci.lint.sh $TARGET
 #    - script: ./devops/scripts/ci.lint.sh auth-service
 #      name: "Linting auth-service app"
@@ -65,10 +68,10 @@ jobs:
     - stage: test
       if: type = pull_request
 #      name: "Testing client app"
-      env:
-        - TARGET=client
-        - TARGET=auth-service
-        - TARGET=products-service
+#      env:
+#        - TARGET=client
+#        - TARGET=auth-service
+#        - TARGET=products-service
       script: ./devops/scripts/ci.test.sh $TARGET
 #    - script: ./devops/scripts/ci.test.sh auth-service
 #      name: "Testing auth-service app"
@@ -79,10 +82,10 @@ jobs:
     - stage: build to DOCKER HUB
       if: type = push
 #      name: "Building client app"
-      env:
-        - TARGET=client
-        - TARGET=auth-service
-        - TARGET=products-service
+#      env:
+#        - TARGET=client
+#        - TARGET=auth-service
+#        - TARGET=products-service
       script: ./devops/scripts/ci.build.sh $TARGET
 #    - script: ./devops/scripts/ci.build.sh auth-service
 #      name: "Building auth-service app"
@@ -93,10 +96,10 @@ jobs:
     - stage: build to ECR
       if: type = push
 #      name: "Building client app"
-      env:
-        - TARGET=client
-        - TARGET=auth-service
-        - TARGET=products-service
+#      env:
+#        - TARGET=client
+#        - TARGET=auth-service
+#        - TARGET=products-service
       script: ./devops/scripts/ci.init-build.ecr.sh $TARGET
 #    - script: ./devops/scripts/ci.init-build.ecr.sh auth-service
 #      name: "Building auth-service app"
