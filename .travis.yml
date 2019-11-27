@@ -32,16 +32,16 @@ branches:
 #    - stage: deploy
 #      script: ./deploy
 
-matrix:
-  include:
-    - env: TARGET=client
-    - env: TARGET=auth-service
-    - env: TARGET=products-service
+#matrix:
+#  include:
+#    - env: TARGET=client
+#    - env: TARGET=auth-service
+#    - env: TARGET=products-service
 
-#env:
-#  - TARGET=client
-#  - TARGET=auth-service
-#  - TARGET=products-service
+env:
+  - TARGET=client
+  - TARGET=auth-service
+  - TARGET=products-service
 #
 #script: ./devops/scripts/ci.run-all.sh
 
