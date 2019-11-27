@@ -32,11 +32,11 @@ branches:
 #    - stage: deploy
 #      script: ./deploy
 
-#matrix:
-#  include:
-#    - env: TARGET=client
-#    - env: TARGET=auth-service
-#    - env: TARGET=products-service
+matrix:
+  include:
+    - env: TARGET=client
+    - env: TARGET=auth-service
+    - env: TARGET=products-service
 
 #env:
 #  - TARGET=client
@@ -50,41 +50,41 @@ jobs:
   include:
     - stage: lint
       if: type = pull_request
-      name: "Linting client app"
-      script: ./devops/scripts/ci.lint.sh client
-    - script: ./devops/scripts/ci.lint.sh auth-service
-      name: "Linting auth-service app"
-      if: type = pull_request
-    - script: ./devops/scripts/ci.lint.sh products-service
-      name: "Linting products-service app"
-      if: type = pull_request
+#      name: "Linting client app"
+      script: ./devops/scripts/ci.lint.sh $TARGET
+#    - script: ./devops/scripts/ci.lint.sh auth-service
+#      name: "Linting auth-service app"
+#      if: type = pull_request
+#    - script: ./devops/scripts/ci.lint.sh products-service
+#      name: "Linting products-service app"
+#      if: type = pull_request
     - stage: test
       if: type = pull_request
-      name: "Testing client app"
-      script: ./devops/scripts/ci.test.sh client
-    - script: ./devops/scripts/ci.test.sh auth-service
-      name: "Testing auth-service app"
-      if: type = pull_request
-    - script: ./devops/scripts/ci.test.sh products-service
-      name: "Testing products-service app"
-      if: type = pull_request
+#      name: "Testing client app"
+      script: ./devops/scripts/ci.test.sh $TARGET
+#    - script: ./devops/scripts/ci.test.sh auth-service
+#      name: "Testing auth-service app"
+#      if: type = pull_request
+#    - script: ./devops/scripts/ci.test.sh products-service
+#      name: "Testing products-service app"
+#      if: type = pull_request
     - stage: build to DOCKER HUB
       if: type = push
-      name: "Building client app"
-      script: ./devops/scripts/ci.build.sh client
-    - script: ./devops/scripts/ci.build.sh auth-service
-      name: "Building auth-service app"
-      if: type = push
-    - script: ./devops/scripts/ci.build.sh products-service
-      name: "Building products-service app"
-      if: type = push
+#      name: "Building client app"
+      script: ./devops/scripts/ci.build.sh $TARGET
+#    - script: ./devops/scripts/ci.build.sh auth-service
+#      name: "Building auth-service app"
+#      if: type = push
+#    - script: ./devops/scripts/ci.build.sh products-service
+#      name: "Building products-service app"
+#      if: type = push
     - stage: build to ECR
       if: type = push
-      name: "Building client app"
-      script: ./devops/scripts/ci.init-build.ecr.sh client
-    - script: ./devops/scripts/ci.init-build.ecr.sh auth-service
-      name: "Building auth-service app"
-      if: type = push
-    - script: ./devops/scripts/ci.init-build.ecr.sh products-service
-      name: "Building products-service app"
-      if: type = push
+#      name: "Building client app"
+      script: ./devops/scripts/ci.init-build.ecr.sh $TARGET
+#    - script: ./devops/scripts/ci.init-build.ecr.sh auth-service
+#      name: "Building auth-service app"
+#      if: type = push
+#    - script: ./devops/scripts/ci.init-build.ecr.sh products-service
+#      name: "Building products-service app"
+#      if: type = push
