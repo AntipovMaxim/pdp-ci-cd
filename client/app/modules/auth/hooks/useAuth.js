@@ -3,6 +3,7 @@ import {
   createContext,
   useReducer,
 } from 'react';
+import get from 'lodash/get';
 
 import { authReducer, initialAuthState, ACTION_TYPES } from './reducer';
 import { UserStorage } from '../../../shared/services/storages/UserStorage';
@@ -53,7 +54,7 @@ export function useProvideAuth() {
       const { data } = await apiUsers.get('/auth/current');
       dispatch({ type: ACTION_TYPES.GET_CURRENT_USER_SUCCESS, payload: data });
     } catch (error) {
-      dispatch({ type: ACTION_TYPES.GET_CURRENT_USER_FAILURE, payload: error.response.data });
+      dispatch({ type: ACTION_TYPES.GET_CURRENT_USER_FAILURE, payload: get(error, 'response.data', {}) });
     }
   };
 

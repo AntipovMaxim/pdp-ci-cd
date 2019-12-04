@@ -15,6 +15,21 @@ setup(app, {
 
 const prettyHost = process.env.HOST || 'localhost';
 
+// Errors handling
+app.use((req, res, next) => {
+  const err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+app.use((err, req, res) => {
+  res.status(err.status || 500);
+  res.end(JSON.stringify({
+    message: err.message,
+    error: {},
+  }));
+});
+
 // Start your app!
 app.listen(port, (err) => {
   if (err) {
