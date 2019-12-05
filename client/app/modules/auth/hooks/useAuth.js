@@ -20,9 +20,11 @@ export function useProvideAuth() {
   const router = useRouter();
 
   const handleSuccess = (data) => {
-    UserStorage.setAuthorization(data.token);
-    dispatch({ type: ACTION_TYPES.AUTH_SUCCESS, payload: data });
-    router.push('/');
+    const setAuthToken = new Promise(((resolve) => resolve(UserStorage.setAuthorization(data.token))));
+    setAuthToken.then(() => {
+      dispatch({ type: ACTION_TYPES.AUTH_SUCCESS, payload: data });
+      router.push('/');
+    });
   };
 
   const login = async (email, password) => {
