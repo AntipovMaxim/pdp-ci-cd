@@ -90,13 +90,13 @@ jobs:
 #    - script: ./devops/scripts/ci.init-build.ecr.sh products-service
 #      name: "Building products-service app"
 #      if: type = push
-      - stage: Deploy to heroku
-        if: type = push
-        name: "Deploy client app"
-        script: ./devops/scripts/ci.heroku-deploy.sh client
-      - script: ./devops/scripts/ci.heroku-deploy.sh auth-service
-        name: "Deploy auth-service app"
-        if: type = push
-      - script: ./devops/scripts/ci.heroku-deploy.sh products-service
-        name: "Deploy products-service app"
-        if: type = push
+    - stage: Deploy to heroku
+      if: type = push
+      name: "Deploy client app"
+      script: ./devops/scripts/ci.heroku-deploy.sh client
+    - script: ./devops/scripts/ci.heroku-deploy.sh auth-service
+      name: "Deploy auth-service app"
+      if: type = push
+    - script: ./devops/scripts/ci.heroku-deploy.sh products-service
+      name: "Deploy products-service app"
+      if: type = push
