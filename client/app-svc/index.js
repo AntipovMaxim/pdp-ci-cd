@@ -7,7 +7,7 @@ const setup = require('./middlewares/frontendMiddleware');
 
 const app = express();
 
-// In production we need to pass these values in instead of relying on webpack!!
+// In production we need to pass these values in instead of relying on webpack
 setup(app, {
   outputPath: resolve(process.cwd(), 'build'),
   publicPath: '/',
