@@ -8,7 +8,7 @@ heroku --version
 
 
 echo "HEROKU LOGIN"
-heroku login
+heroku auth:token
 
 currentDir=$PWD
 
