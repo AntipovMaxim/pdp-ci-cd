@@ -1,4 +1,5 @@
 import { useReducer } from 'react';
+import get from 'lodash/get';
 
 import { ACTION_TYPES, initialProductsState, productsReducer } from './reducer';
 import { api } from '../api';
@@ -18,7 +19,7 @@ export const useProducts = () => {
     } catch (error) {
       dispatch({
         type: ACTION_TYPES.GET_PRODUCTS_FAILURE,
-        payload: error.response.data,
+        payload: get(error, 'response.data', {}),
       });
     }
   };
