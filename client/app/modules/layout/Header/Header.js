@@ -12,7 +12,7 @@ const Header = (props) => {
         className="header__logo"
         src="https://miro.medium.com/max/4000/1*TNJ7Rpr5G1OJHtKH-IBEFw.png"
         alt="logo"
-      />
+      />HEROKU
       <div>
         {isAuthenticated ? (
           <div>
