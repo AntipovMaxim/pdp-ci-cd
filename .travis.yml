@@ -28,14 +28,13 @@ env:
 
 jobs:
   include:
-#    - stage: lint
-#      if: type = pull_request
-#      name: "Linting"
-#      script: ./devops/scripts/ci.lint.sh client
-    - stage: test
+    - stage: CI checks
+      if: type = pull_request
+      name: "Linting"
+      script: ./devops/scripts/ci.lint.sh client
+    - script: ./devops/scripts/ci.test.sh client
       if: type = pull_request
       name: "Testing"
-      script: ./devops/scripts/ci.test.sh client
     - stage: build to DOCKER HUB
       if: type = push
       name: "Building client app"
