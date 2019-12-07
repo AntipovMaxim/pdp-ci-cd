@@ -6,21 +6,37 @@ notifications:
 
 before_script:
   - chmod +x devops/scripts/check-target-changes.sh
-  - chmod +x devops/scripts/ci.run-target.sh
-  - chmod +x devops/scripts/ci.run-all.sh
+  - chmod +x devops/scripts/ci.run-target.lint.sh
+  - chmod +x devops/scripts/ci.run-target.test.sh
   - chmod +x devops/scripts/auto_merge.sh
-  - chmod +x devops/scripts/after_success.sh
+  - chmod +x devops/scripts/ci.lint.sh
+  - chmod +x devops/scripts/ci.test.sh
+  - chmod +x devops/scripts/ci.build-target.docker-hub.sh
+  - chmod +x devops/scripts/ci.build.docker-hub.sh
+  - chmod +x devops/scripts/ci.build-target.ecr.sh
+  - chmod +x devops/scripts/ci.init-build.ecr.sh
+  - chmod +x devops/scripts/ci.heroku-deploy.sh
+  - chmod +x devops/scripts/ci.heroku-deploy-target.sh
 
 branches:
   only:
     - master
-matrix:
+
+env:
+  global:
+    - APPS=client/auth-service/products-service
+
+jobs:
   include:
-    - env: TARGET=client
-    - env: TARGET=auth-service
-    - env: TARGET=products-service
+    - stage: CI CHEKS
+      if: type = pull_request
+      name: "Linting"
+      script: ./devops/scripts/ci.lint.sh
+    - script: ./devops/scripts/ci.test.sh
+      if: type = pull_request
+      name: "Testing"
+    - stage: Deploy to Heroku
+      if: type = push
+      script: ./devops/scripts/ci.heroku-deploy.sh
 
-script:
-  - ./devops/scripts/ci.run-all.sh
-  if: type = pull_request
-
+cache: npm
