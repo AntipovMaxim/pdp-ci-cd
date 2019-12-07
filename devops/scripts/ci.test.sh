@@ -9,6 +9,5 @@ function lintApps() {
 
 }
 
-array=("client" "auth-service" "products-service")
 
-lintApps "${array[@]}"
+lintApps "${$APPS[@]}"

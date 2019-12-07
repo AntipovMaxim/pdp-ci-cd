@@ -22,6 +22,8 @@ branches:
   only:
     - master
 
+env:
+  - APPS=("client" "auth-service" "products-service")
 jobs:
   include:
     - stage: lint
