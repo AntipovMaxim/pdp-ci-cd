@@ -24,7 +24,7 @@ branches:
 
 env:
   global:
-    - APPS=client, auth-service, products-service
+    - APPS=client/auth-service/products-service
 
 jobs:
   include:

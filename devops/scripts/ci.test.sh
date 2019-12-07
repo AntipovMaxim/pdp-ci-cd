@@ -9,6 +9,6 @@ function testApps() {
 
 }
 
-IFS=', ' read -r -a apps <<< "$APPS"
+IFS='/' read -r -a apps <<< "$APPS"
 
 testApps "${apps[@]}"
