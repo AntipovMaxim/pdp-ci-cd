@@ -23,13 +23,15 @@ branches:
     - master
 
 env:
-  - APPS=("client" "auth-service" "products-service")
+  global:
+    - APPS=(client auth-service products-service)
+
 jobs:
   include:
-    - stage: lint
-      if: type = pull_request
-      name: "Linting"
-      script: ./devops/scripts/ci.lint.sh client
+#    - stage: lint
+#      if: type = pull_request
+#      name: "Linting"
+#      script: ./devops/scripts/ci.lint.sh client
     - stage: test
       if: type = pull_request
       name: "Testing"
