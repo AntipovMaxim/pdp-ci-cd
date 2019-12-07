@@ -1,6 +1,6 @@
 #! /bin/bash
 
-function lintApps() {
+function testApps() {
    arr=("$@")
    for i in "${arr[@]}";
       do
@@ -9,5 +9,6 @@ function lintApps() {
 
 }
 
+apps=$APPS
 
-lintApps "${$APPS[@]}"
+testApps "${apps[@]}"
