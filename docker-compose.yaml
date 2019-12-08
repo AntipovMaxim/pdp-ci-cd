@@ -3,7 +3,7 @@ services:
   client:
     build: ./client
     ports:
-      - "80:80"
+      - "3001:3000"
     environment:
       - PRODUCTS_API_URL=http://localhost:4000
       - AUTH_API_URL=http://localhost:5000
