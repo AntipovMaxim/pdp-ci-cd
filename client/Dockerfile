@@ -1,19 +1,15 @@
-FROM node:10
+# Stage 1 - the build process
+FROM node:9.8-slim as build
 
-# Create app directory
-WORKDIR /app
-
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-COPY package.json /app
-
+WORKDIR /usr/src/app
+COPY package*.json ./
 RUN npm install
-# If you are building your code for production
-# RUN npm ci --only=production
+COPY . ./
+RUN npm run build
 
-# Bundle app source
-COPY . /app
-
-EXPOSE 3000
-CMD ["npm", "run", "start:production"]
+# Stage 2 - the production environment
+FROM nginx:1.13-alpine
+# COPY nginx-site.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /usr/src/app/build /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

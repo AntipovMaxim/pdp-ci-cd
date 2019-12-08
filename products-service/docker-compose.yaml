@@ -1,0 +1,18 @@
+version: "2"
+services:
+  products-service:
+    build: .
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+    env_file:
+      - ./enviroment/local.env
+  db:
+    image: mongo:latest
+    ports:
+      - "27018:27017"
+    volumes:
+      - data-volume:/data/db
+volumes:
+  data-volume:
