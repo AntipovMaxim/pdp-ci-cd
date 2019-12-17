@@ -13,12 +13,7 @@ aws ecr get-login
 currentDir="$PWD"
 appPath="$currentDir/$1"
 file="$appPath/Dockerrun.aws.json"
-currentTag=`aws elasticbeanstalk describe-environments --application-name "pdp-ci-cd-$target" --environment-name "pdp-ci-cd-$target-env" --query "Environments[*].VersionLabel" --output text`
-echo "CURRENT TAG $currentTag"
-IFS='-' read -r -a array <<< "$currentTag"
-currentVersion="${array[1]}"
-nextVersion=$(($currentVersion + 1))
-tag="version-$TRAVIS_BUILD_NUMBER"
+tag="TRAVIS_COMMIT"
 s3Bucket="elasticbeanstalk-us-east-2-294808553613"
 s3Path="$target/$tag/"
 fileName="Dockerrun.aws.json"
