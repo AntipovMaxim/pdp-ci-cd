@@ -18,7 +18,7 @@ echo "CURRENT TAG $currentTag"
 IFS='-' read -r -a array <<< "$currentTag"
 currentVersion="${array[1]}"
 nextVersion=$(($currentVersion + 1))
-tag="version-$nextVersion"
+tag="version-$TRAVIS_BUILD_NUMBER"
 s3Bucket="elasticbeanstalk-us-east-2-294808553613"
 s3Path="$target/$tag/"
 fileName="Dockerrun.aws.json"
