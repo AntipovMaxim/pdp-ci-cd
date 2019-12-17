@@ -1,14 +1,26 @@
 #!/bin/bash
 
-repo="anmax88/client"
-tag="master-v9"
-file="Dockerrun.aws.json"
+target="$1"
+repo="anmax88/$target"
+currentDir="$PWD"
+appPath="$currentDir/$1"
+file="$appPath/Dockerrun.aws.json"
+currentTag=`aws elasticbeanstalk describe-environments --application-name "pdp-ci-cd-$target" --environment-name "pdp-ci-cd-$target-env" --query "Environments[*].VersionLabel" --output text`
+echo "$currentTag"
+IFS='-' read -r -a array <<< "$currentTag"
+currentVersion="${array[1]}"
+nextVersion=$(($currentVersion + 1))
+tag="version-1"
 s3Bucket="elasticbeanstalk-us-east-2-294808553613"
-s3Path="app/$tag/"
-s3Key="$s3Path$file"
+s3Path="$target/$tag/"
+fileName="Dockerrun.aws.json"
+s3Key="$s3Path$fileName"
+
+
 
 
 echo "BUILD IMAGE"
+cd "$appPath"
 docker build -t $repo .
 
 echo "PUSH IMAGE"
@@ -19,7 +31,7 @@ aws s3 cp $file s3://$s3Bucket/$s3Path
 
 echo "create-application-version"
 aws elasticbeanstalk create-application-version \
-    --application-name pdp-ci-cd-client \
+    --application-name pdp-ci-cd-$target \
     --version-label "$tag" \
     --source-bundle "{\"S3Bucket\":\"$s3Bucket\",\"S3Key\":\"$s3Key\"}"
 
@@ -27,7 +39,7 @@ aws elasticbeanstalk create-application-version \
 # Deploy to stage
 echo "DEPLOY"
 aws elasticbeanstalk update-environment \
-    --environment-name "PdpCiCdClient-env" \
+    --environment-name "pdp-ci-cd-$target-env" \
     --version-label "$tag"
 
 
@@ -45,8 +57,8 @@ while true; do
     fi
 
     # See what's deployed
-    version=`aws elasticbeanstalk describe-environments --application-name "pdp-ci-cd-client" --environment-name "PdpCiCdClient-env" --query "Environments[*].VersionLabel" --output text`
-    status=`aws elasticbeanstalk describe-environments --application-name "pdp-ci-cd-client" --environment-name "PdpCiCdClient-env" --query "Environments[*].Status" --output text`
+    version=`aws elasticbeanstalk describe-environments --application-name "pdp-ci-cd-$target" --environment-name "pdp-ci-cd-$target-env" --query "Environments[*].VersionLabel" --output text`
+    status=`aws elasticbeanstalk describe-environments --application-name "pdp-ci-cd-$target" --environment-name "pdp-ci-cd-$target-env" --query "Environments[*].Status" --output text`
 
     if [ "$version" != "$tag" ]; then
         echo "Tag not updated (currently $version). Waiting."
@@ -60,3 +72,7 @@ while true; do
     fi
     break
 done
+
+
+
+

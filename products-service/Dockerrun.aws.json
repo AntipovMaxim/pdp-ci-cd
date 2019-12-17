@@ -1,0 +1,11 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "anmax88/products-service"
+  },
+  "Ports": [
+    {
+      "ContainerPort": "4000"
+    }
+  ]
+}

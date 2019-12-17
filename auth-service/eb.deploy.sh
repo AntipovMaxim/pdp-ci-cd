@@ -1,7 +1,7 @@
 #!/bin/bash
 
-repo="anmax88/client"
-tag="master-v9"
+repo="anmax88/auth-service"
+tag="master-v28"
 file="Dockerrun.aws.json"
 s3Bucket="elasticbeanstalk-us-east-2-294808553613"
 s3Path="app/$tag/"
@@ -19,7 +19,7 @@ aws s3 cp $file s3://$s3Bucket/$s3Path
 
 echo "create-application-version"
 aws elasticbeanstalk create-application-version \
-    --application-name pdp-ci-cd-client \
+    --application-name pdp-ci-cd-auth-service \
     --version-label "$tag" \
     --source-bundle "{\"S3Bucket\":\"$s3Bucket\",\"S3Key\":\"$s3Key\"}"
 
@@ -27,7 +27,7 @@ aws elasticbeanstalk create-application-version \
 # Deploy to stage
 echo "DEPLOY"
 aws elasticbeanstalk update-environment \
-    --environment-name "PdpCiCdClient-env" \
+    --environment-name "pdp-ci-cd-auth-service-env" \
     --version-label "$tag"
 
 
@@ -45,8 +45,8 @@ while true; do
     fi
 
     # See what's deployed
-    version=`aws elasticbeanstalk describe-environments --application-name "pdp-ci-cd-client" --environment-name "PdpCiCdClient-env" --query "Environments[*].VersionLabel" --output text`
-    status=`aws elasticbeanstalk describe-environments --application-name "pdp-ci-cd-client" --environment-name "PdpCiCdClient-env" --query "Environments[*].Status" --output text`
+    version=`aws elasticbeanstalk describe-environments --application-name "pdp-ci-cd-auth-service" --environment-name "pdp-ci-cd-auth-service-env" --query "Environments[*].VersionLabel" --output text`
+    status=`aws elasticbeanstalk describe-environments --application-name "pdp-ci-cd-auth-service-env" --environment-name "pdp-ci-cd-auth-service-env" --query "Environments[*].Status" --output text`
 
     if [ "$version" != "$tag" ]; then
         echo "Tag not updated (currently $version). Waiting."
