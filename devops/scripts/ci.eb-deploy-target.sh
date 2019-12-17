@@ -1,7 +1,14 @@
 #!/bin/bash
 
+echo "INSTALL AWSCLI"
+pip install --user awscli
+export PATH=$PATH:$HOME/.local/bin
+
+echo "LOGIN TO AWS"
+$(aws ecr get-login --no-include-email --region us-east-2)
+aws ecr get-login
+
 target="$1"
-repo="anmax88/$target"
 currentDir="$PWD"
 appPath="$currentDir/$1"
 file="$appPath/Dockerrun.aws.json"
