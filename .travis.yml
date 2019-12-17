@@ -17,6 +17,8 @@ before_script:
   - chmod +x devops/scripts/ci.init-build.ecr.sh
   - chmod +x devops/scripts/ci.heroku-deploy.sh
   - chmod +x devops/scripts/ci.heroku-deploy-target.sh
+  - chmod +x devops/scripts/ci.eb-deploy-target.sh
+  - chmod +x devops/scripts/ci.eb-deploy.sh
 
 branches:
   only:
@@ -38,5 +40,8 @@ jobs:
     - stage: Deploy to Heroku
       if: type = push
       script: ./devops/scripts/ci.heroku-deploy.sh
+    - stage: Deploy to AWS
+      if: type = push
+      script: ./devops/scripts/ci.eb-deploy.sh
 
 cache: npm
