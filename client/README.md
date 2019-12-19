@@ -36,11 +36,11 @@ Products server | `https://pdp-ci-cd-products-service.herokuapp.com` | [swagger 
 
 ## Commands
 ### Development
-- **``` $ npm run start ```** - Run express server that host project sources(`/public`) in development mode with HMR at `http://localhost:3000`;
-- **``` $ npm run build ```** - Provide **compiled** bundle to `/public` directory.
+- **``` $ npm run start ```** - Run express server that host project sources(`/build`) in development mode with HMR at `http://localhost:3000`;
+- **``` $ npm run build ```** - Provide **compiled** bundle to `/build` directory.
 - **``` $ npm test ```** - Runs **Unit** tests **once** with Jest. Config file: `./jest.config.js`, with coverage option.
 - **``` $ npm run lint ```** - Runs eslint checker **once**. Config file: `.eslintrc`.
-- **``` $ npm run clean ```** - Remove 'public' and 'node_modules' folders.
+- **``` $ npm run clean ```** - Remove 'build' and 'node_modules' folders.
 
 
 ### Production
@@ -48,11 +48,59 @@ Products server | `https://pdp-ci-cd-products-service.herokuapp.com` | [swagger 
 - **``` $ npm run start:production ```** - Build client and app-svc app for production mode
 
 
+### Docker
+By default, the Docker will expose port 3000, so change this within the Dockerfile if necessary. When ready, simply use the Dockerfile to build the image.
+
+```sh
+cd client
+docker build -t <youruser>/client .
+```
+
+This will create the client image and pull in the necessary dependencies.
+
+Once done, run the Docker image and map the port to whatever you wish on your host. In this example, we simply map port 3000 of the host to port 3000 of the Docker (or whatever port was exposed in the Dockerfile):
+
+```sh
+docker run -d -p 8000:8080 --restart="always" --env-file ./enviroment/local.env <youruser>/client:latest
+```
+or
+
+```sh
+docker-compose up
+```
+
+Verify the deployment by navigating to your server address in your preferred browser.
+
+```sh
+127.0.0.1:3000
+```
+
+
 ## CI/СD
 ### TravisCI
 Config file: `.travis.yml`
 
+**Process**
+	1. When pull request created the test and linting runs on TravisCI VM;
+	2. Github check status of `Travis CI - Pull request`;
+	3. After the build is green and we have enough approves pull request will merged automatically;
+	4. After pull request is merged to master TravisCI VM build image and push to DOCKER HUB latest version;
+	5. After image is pushed successfully start running deploy to dev env (heroku service) and prod env (AWS)
 
+
+**Travis CI configuration**
+	1. We have to set `Build pushed branches` option to `ON` ([documentation](https://docs.travis-ci.com/user/web-ui/#build-pushed-branches))
+	2. We have to set `Build pushed pull requests` option to `ON` ([documentation](https://docs.travis-ci.com/user/web-ui/#build-pushed-pull-requests))
+
+**Travis CI ENV variables**	
+*name* | *evs*  | documentation | short description
+--- | --- | --- | ---
+Docker hub | `DOCKER_HUB_PASSWORD`, `DOCKER_HUB_USERNAME` | [link](https://hub.docker.com/) | sign in credentials to docker hub
+Github | `GITHUB_SECRET_TOKEN` | [link](https://github.com/settings/tokens) | have to generate token for repository access
+Heroku | `HEROKU_API_KEY`, `HEROKU_CREDENTIALS_EMAIL`, `HEROKU_CREDENTIALS_PASSWORD` | [link](https://devcenter.heroku.com/articles/authentication) | should generate an API key that allows me to use the Heroku API
+AWS | `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_DEFAULT_REGION` | [link](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) | should create iam user with admin polices and `Access Key ID`, `Secret Access Key`
+
+	
 
 ## Contribution
 Before push commit make sure that all modules are added in package.json
