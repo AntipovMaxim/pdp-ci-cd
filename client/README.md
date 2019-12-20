@@ -20,6 +20,12 @@ $ npm install
 $ npm start
 ```
 
+Verify the deployment by navigating to your server address in your preferred browser.
+
+```sh
+127.0.0.1:3000
+```
+
 ## Environments
 *name* | *url* |
 --- | --- 
@@ -40,7 +46,7 @@ Products server | `https://pdp-ci-cd-products-service.herokuapp.com` | [swagger 
 - **``` $ npm run build ```** - Provide **compiled** bundle to `/build` directory.
 - **``` $ npm test ```** - Runs **Unit** tests **once** with Jest. Config file: `./jest.config.js`, with coverage option.
 - **``` $ npm run lint ```** - Runs eslint checker **once**. Config file: `.eslintrc`.
-- **``` $ npm run clean ```** - Remove 'build' and 'node_modules' folders.
+- **``` $ npm run clean ```** - Remove 'build' folder.
 
 
 ### Production
@@ -61,7 +67,7 @@ This will create the client image and pull in the necessary dependencies.
 Once done, run the Docker image and map the port to whatever you wish on your host. In this example, we simply map port 3000 of the host to port 3000 of the Docker (or whatever port was exposed in the Dockerfile):
 
 ```sh
-docker run -d -p 8000:8080 --restart="always" --env-file ./enviroment/local.env <youruser>/client:latest
+docker run -d -p 3000:3000 --restart="always" --env-file ./enviroment/local.env <youruser>/client:latest
 ```
 or
 
@@ -75,73 +81,47 @@ Verify the deployment by navigating to your server address in your preferred bro
 127.0.0.1:3000
 ```
 
+## Folder/files structure
+- **/enviroment** - enviroment variables
+     - **local.env** - enviroment variables for local development
+- **/app** - client source code
+    - **/core** - core app functionality
+         - **/config** - root configuration
+              - **apiConfig** - api urls
+         - **/providers** - root app providers
+              - **AuthProvider.js** - auth provider
+         - ....
+     - **/modules** - modules that contain all functionality in one place    
+          - **/auth** - auth module
+              - **/api** - configuration for working with api (http request)
+                  - **index.js**
+              - **/components** - all modules components
+                  - **/auth-page**
+                       - **/tests** - tests for current component
+                           - **index.test.js**
+                       - **AuthPage.js** - auth page component
+                       - **styles.scss** - styles for this component    
+               - **/hooks** - React hooks that used in current module
+               - **Loadable.js** - asynchronously loads the component for HomePage   
+               - **index.js** - export file       
+           - .... other modules
+     - **/shared** - shared(common) app functionality
+         - **/components**                
+         - **/hooks**                
+         - **/services**                
+         - **/utils**
+     - **/styles** - global styles
+     - **/build** - bundled source code                    
+- **/config** - root application configs(jest, webpack ...)
+         - **jest.config.js** - configuration for jest test framework
+         - ....
+- **/docker** - docker configurations
+    - **Dockerfile** - build image configuration
+    - **docker-compose.yaml** - to combine service with mongoDB locally 
+    - **Dockerrun.aws.json**  - configuration file for deploy to AWS Elastic Beanstalk 
+- **/ap-svc** - simple express server that serve static files                     
+- **package.json** - component meta file (default for js environment).
 
-## CI/СD
-### TravisCI
-Config file: `.travis.yml`
-
-**Process**
-	1. When pull request created the test and linting runs on TravisCI VM;
-	2. Github check status of `Travis CI - Pull request`;
-	3. After the build is green and we have enough approves pull request will merged automatically;
-	4. After pull request is merged to master TravisCI VM build image and push to DOCKER HUB latest version;
-	5. After image is pushed successfully start running deploy to dev env (heroku service) and prod env (AWS)
-
-
-**Travis CI configuration**
-	1. We have to set `Build pushed branches` option to `ON` ([documentation](https://docs.travis-ci.com/user/web-ui/#build-pushed-branches))
-	2. We have to set `Build pushed pull requests` option to `ON` ([documentation](https://docs.travis-ci.com/user/web-ui/#build-pushed-pull-requests))
-
-**Travis CI ENV variables**	
-*name* | *evs*  | documentation | short description
---- | --- | --- | ---
-Docker hub | `DOCKER_HUB_PASSWORD`, `DOCKER_HUB_USERNAME` | [link](https://hub.docker.com/) | sign in credentials to docker hub
-Github | `GITHUB_SECRET_TOKEN` | [link](https://github.com/settings/tokens) | have to generate token for repository access
-Heroku | `HEROKU_API_KEY`, `HEROKU_CREDENTIALS_EMAIL`, `HEROKU_CREDENTIALS_PASSWORD` | [link](https://devcenter.heroku.com/articles/authentication) | should generate an API key that allows me to use the Heroku API
-AWS | `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_DEFAULT_REGION` | [link](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) | should create iam user with admin polices and `Access Key ID`, `Secret Access Key`
-
-	
-
-## Contribution
-Before push commit make sure that all modules are added in package.json
-
-### development flow
-
-- **SubTask*** is Open
-	1. Move Jira ticket to ***in progress*** status _(ex. SJ-587)_;
-	2. Shortly discuss with the UX specialist story wireframes;
-	3. Shortly discuss with me or another colleagues about implementation;
-	4. Create feature branch **`feature/${projectKey}-${ticketNumber}`**  _(ex. **feature/SJ-531**)_ from **master**
-
-- **SubTask*** is done on your local branch
-	0. Pull actual state of **master** branch;
-	1. Check test cases from TestRails;
-	2. Check functionality and interface behavior with UX specialist;
-	3. Create merge request on **master** branch;
-	4. Move Jira ticket to ***code review*** status;
-	5. Wait for **code review process**** from colleagues;
-	6. Resolve review and accept merge request.
-
-- **SubTask*** is on *master branch* and deploed on *develop environment*
-	1. Move Jira ticket to ***done*** status;
-
-- in case when **SubTask** is the last development ticket in the Story.
-	1. Move Story to **ready to test** status and reassign to QA engineer which assigned to `[QA]` subTask.
-
-`*`: It is sub task of main Jira Story which marked by `[FE]` prefix;
-
-`**`: **Code review process**
-
-- Code review process
-	1. Opened merge it is **high priority** for another **developers**
-	2. Review code of your colleague
-	3. Send comment if you have
-	4. Leave 'Like' on merge request, if your comments resolves or you do not have any questions
-	5. After 2 'Likes' from colleagues, you can accept merge request.
-
-
-### git branching strategy - (Trunk based development)
-![Git branching stategy](https://uploads.toptal.io/blog/image/129304/toptal-blog-image-1551794413174-f4139c4be533dc592d49f9a0bcc330f0.png)
 
 ### Code standard
 #### Common (es2015, React, Sass)
