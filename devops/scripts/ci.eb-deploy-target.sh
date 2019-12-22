@@ -13,7 +13,7 @@ aws ecr get-login
 currentDir="$PWD"
 appPath="$currentDir/$1"
 file="$appPath/Dockerrun.aws.json"
-tag="TRAVIS_COMMIT"
+tag="$TRAVIS_COMMIT"
 s3Bucket="elasticbeanstalk-us-east-2-294808553613"
 s3Path="$target/$tag/"
 fileName="Dockerrun.aws.json"

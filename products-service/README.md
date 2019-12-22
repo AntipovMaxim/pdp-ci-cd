@@ -1,15 +1,10 @@
-# PDP CI/CD Identity server app [![Build Status](https://travis-ci.com/martmax/pdp-ci-cd.svg?branch=master)](https://travis-ci.com/martmax/pdp-ci-cd)
+# PDP CI/CD Products server app [![Build Status](https://travis-ci.com/martmax/pdp-ci-cd.svg?branch=master)](https://travis-ci.com/martmax/pdp-ci-cd)
 
-RESTFull web application for managing users, authentication, authorization.
+RESTFull web application for managing products.
  - based on  [Express.js](https://expressjs.com/) technology stack;
  - auth based on [JWT](https://jwt.io/)
  - for database used [MongoDB](https://www.mongodb.com/), [Mongoose](https://mongoosejs.com/)
  - for documentation used [swagger-ui-express](https://www.npmjs.com/package/swagger-ui-express)
-
-
-### For handling authentication, authorization used JWT technology:
-JSON Web Token (JWT) is an open standard (RFC 7519) that defines a way for transmitting information –like authentication and authorization facts– between two parties: an issuer and an audience. Communication is safe because each token issued is digitally signed, so the consumer can verify if the token is authentic or has been forged.
-Each token is self-contained, that means it contains every information needed to allow or deny any given requests to an API. To understand how we can verify a token and how authorization happens we need to take a step back and look into a JWT.
 
 
 ## Setup
@@ -22,7 +17,7 @@ $ npm -v ^6.9.0
 ### Installation
 ```
 $ git clone https://github.com/martmax/pdp-ci-cd.git
-$ cd pdp-ci-cd/auth-service
+$ cd pdp-ci-cd/products-service
 $ npm install
 $ npm start
 ```
@@ -30,7 +25,7 @@ $ npm start
 Verify the deployment by navigating to your server address in your preferred browser.
 
 ```sh
-127.0.0.1:5000
+127.0.0.1:4000
 ```
 
 ## Environments
@@ -65,7 +60,7 @@ By default, the Docker will expose port 5000, so change this within the Dockerfi
 
 ```sh
 cd auth-service
-docker build -t <youruser>/auth-service .
+docker build -t <youruser>/products-service .
 ```
 
 This will create the client image and pull in the necessary dependencies.
@@ -73,7 +68,7 @@ This will create the client image and pull in the necessary dependencies.
 Once done, run the Docker image and map the port to whatever you wish on your host. In this example, we simply map port 5000 of the host to port 3000 of the Docker (or whatever port was exposed in the Dockerfile):
 
 ```sh
-docker run -d -p 5000:5000 --restart="always" --env-file ./enviroment/local.env <youruser>/auth-service:latest
+docker run -d -p 4000:4000 --restart="always" --env-file ./enviroment/local.env <youruser>/products-service:latest
 ```
 or
 
@@ -84,7 +79,7 @@ docker-compose up
 Verify the deployment by navigating to your server address in your preferred browser.
 
 ```sh
-127.0.0.1:5000
+127.0.0.1:4000
 ```
 
 ## Folder/files structure
@@ -92,20 +87,23 @@ Verify the deployment by navigating to your server address in your preferred bro
      - **local.env** - enviroment variables for local development
 - **/src** - source code
      - **/config** - root application configs
-         - **appConfig** - root config where PORT, APP HOST, DATABASE HOST is setted...
+         - **app.config** - root config where PORT, APP HOST, DATABASE HOST is setted...
      - **/controllers** - all application controllers
-         - **auth** - auth controller
+         - **/products** - products controllers
+             - **....**
+             - **index.js**
          - **index.js** export file for all controllers
      - **/database**
          - **index.js** - database connection functionality
      - **/middlewares**  - all application middlewares
          - **verify-token.middleware.js** - middleware for verifying `jwt` token
+         - **index.js**
      - **/models** - mongoose models, schemas
          - **users.model.js** - model for users  
          - **index.js** export file for all models
      - **/routes** - configuration for app routes
          - **/api** - api routes configuration
-             - **auth.routes.js** - auth routing
+             - **products.routes.js** - auth routing
              - **index.js** - export file for all api routes
          - **index.js** - root routes config    
      - **/utils** - helper functions, controllers, etc...
@@ -113,7 +111,7 @@ Verify the deployment by navigating to your server address in your preferred bro
     - **Dockerfile** - build image configuration
     - **docker-compose.yaml** - to combine service with mongoDB locally 
     - **Dockerrun.aws.json**  - configuration file for deploy to AWS Elastic Beanstalk                  
-- **package.json** - component meta file (default for js environment).
+- **package.json** - component meta file (default for js environment)
 
 #### Error handling code style
 ##### BaseController class
