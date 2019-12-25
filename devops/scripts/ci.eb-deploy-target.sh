@@ -13,7 +13,7 @@ aws ecr get-login
 currentDir="$PWD"
 appPath="$currentDir/$1"
 file="$appPath/Dockerrun.aws.json"
-tag="$TRAVIS_COMMIT"
+tag="$TRAVIS_BUILD_NUMBER"
 s3Bucket="elasticbeanstalk-us-east-2-294808553613"
 s3Path="$target/$tag/"
 fileName="Dockerrun.aws.json"
@@ -23,7 +23,7 @@ echo "NEXT TAG $tag"
 
 
 echo "BUILD AND PUSH IMAGE TO DOCKER HUB"
-./devops/scripts//ci.build-target.docker-hub.sh $target
+./devops/scripts/ci.build-target.docker-hub.sh $target
 
 echo "COPY TO S3"
 aws s3 cp $file s3://$s3Bucket/$s3Path
